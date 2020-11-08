@@ -173,61 +173,147 @@ tables = [
 	{	    
 	"tableName":"institucion",
 	"amount" : 6 ,
-    "columns": ["id","nombre","descrip"],
-    "columnsType": ["txt","txt","txt"],
-    "data" : {"id":"N","nombre":"institucion_N" ,"descrip":"descrip_N"}
+    "columns": [
+		#"id",
+		"nombre",
+		"descrip"],
+    "columnsType": [
+		#"txt",
+		"txt",
+		"txt"],
+    "data" : {
+		#"id":"N",
+		"nombre":"institucion_N" ,
+		"descrip":"descrip_N"}
 	},
 	{	    
 	"tableName":"voluntario",
 	"amount" : 1000 ,
-    "columns": ["id","nombre","fnacimiento"],
-    "columnsType": ["txt","txt","date"],
-    "data" : { "id":"N","nombre":"Voluntario_N" ,"fnacimiento":["1970-01-01","2002-01-01"] }
+    "columns": [
+		#"id",
+		"nombre",
+	"fnacimiento"],
+    "columnsType": [
+		#"txt",
+		"txt",
+		"date"],
+    "data" : { 
+		#"id":"N",
+		"nombre":"Voluntario_N" ,
+		"fnacimiento":["1970-01-01","2002-01-01"] }
 	},
 	{	    
 	"tableName":"habilidad",
 	"amount" : 20 ,
-    "columns": ["id","descrip"],
-    "columnsType": ["txt","txt"],
-    "data" : {"id":"N","descrip":"Habilidad_N" }
+    "columns": [
+		#"id",
+		"descrip"
+		],
+    "columnsType": [
+		#"txt",
+		"txt"
+		],
+    "data" : {
+		#"id":"N",
+		"descrip":"Habilidad_N" 
+		}
 	},
 	{	    
 	"tableName":"estado_tarea",
 	"amount" : 3 ,
-    "columns": ["id","descrip"],
-    "columnsType": ["txt","txt"],
-    "data" : {"id":"N","descrip":"estado_N" }
+    "columns": [
+		#"id",
+		"descrip"],
+    "columnsType": [
+		#"txt",
+		"txt"],
+    "data" : {
+		#"id":"N",
+		"descrip":"estado_N" }
 	},	
 	{	    
 	"tableName":"emergencia",
 	"amount" : 6,
-    "columns": ["id","nombre","descrip","finicio","ffin","id_institucion"],
-    "columnsType": ["txt","txt","txt","date","date","dep"],
-    "data" : {"id":"N", "nombre":"emergencia_N","descrip":"descrip_N","finicio":["1990-01-01","2000-01-01"],"ffin":["2000-01-01","2020-01-01"],
-    		"id_institucion":{"tableName":"institucion","columnId":0}
+    "columns": [
+		#"id",
+		"nombre",		
+		"descrip",
+		"finicio",
+		"ffin",
+		"id_institucion"],
+    "columnsType": [
+		#"txt",
+		"txt",
+		"txt",
+		"date",
+		"date",
+		"dep"],
+    "data" : {
+		#"id":"N", 
+		"nombre":"emergencia_N",
+		"descrip":"descrip_N",
+		"finicio":["1990-01-01","2000-01-01"],
+		"ffin":["2000-01-01","2020-01-01"],
+    	"id_institucion":{"tableName":"institucion","columnId":0}
     	},
 	},	
 	{	    
 	"tableName":"eme_habilidad",
 	"amount" : 20,
-    "columns": ["id","id_emergencia","id_habilidad"],
-    "columnsType": ["txt","dep","dep"],
-    "data" : {"id":"N", "id_emergencia":{"tableName":"emergencia","columnId":0}, "id_habilidad":{"tableName":"habilidad","columnId":0}},
+    "columns": [
+		#"id",
+		"id_emergencia",
+		"id_habilidad"],
+    "columnsType": [
+		#"txt",
+		"dep",
+		"dep"],
+    "data" : {
+		#"id":"N", 
+		"id_emergencia":{"tableName":"emergencia","columnId":0}, 
+		"id_habilidad":{"tableName":"habilidad","columnId":0}},
 	},	
 	{	    
 	"tableName":"vol_habilidad",
 	"amount" : 20000,
-    "columns": ["id","id_voluntario","id_habilidad"],
-    "columnsType": ["txt","dep","dep"],
-    "data" : {"id":"N", "id_voluntario":{"tableName":"voluntario","columnId":0}, "id_habilidad":{"tableName":"habilidad","columnId":0}},
+    "columns": [
+		#"id",
+		"id_voluntario",
+		"id_habilidad"],
+    "columnsType": [
+		#"txt",
+		"dep",
+		"dep"],
+    "data" : {
+		#"id":"N", 
+		"id_voluntario":{"tableName":"voluntario","columnId":0}, 
+		"id_habilidad":{"tableName":"habilidad","columnId":0}},
 	},
 	{	    
 	"tableName":"tarea",
 	"amount" : 100,
-    "columns": ["id","nombre","descrip","cant_vol_requeridos","cant_vol_inscritos","id_emergencia","finicio","ffin","id_estado"],
-    "columnsType": ["txt","txt","txt","rnd","rnd","dep","date","date","dep"],
+    "columns": [
+		#"id",
+		"nombre",
+		"descrip",
+		"cant_vol_requeridos",
+		"cant_vol_inscritos",
+		"id_emergencia",
+		"finicio",
+		"ffin",
+		"id_estado"],
+    "columnsType": [
+		#"txt",
+		"txt",
+		"txt",
+		"rnd",
+		"rnd",
+		"dep",
+		"date",
+		"date",
+		"dep"],
     "data" : {
-    	"id":"N",
+    	#"id":"N",
     	"nombre":"tarea_N",
     	"descrip":"descrip_N", 
     	"cant_vol_requeridos":[16,20],
@@ -241,10 +327,16 @@ tables = [
 	{	    
 	"tableName":"tarea_habilidad",
 	"amount" : 200,
-    "columns": ["id","id_emehab","id_tarea"],
-    "columnsType": ["txt","dep","dep"],
+    "columns": [
+		#"id",
+		"id_emehab",
+		"id_tarea"],
+    "columnsType": [
+		#"txt",
+		"dep",
+		"dep"],
     "data" : {
-    	"id":"N",
+    	#"id":"N",
     	"id_emehab":{"tableName":"eme_habilidad","columnId":0}, 
     	"id_tarea":{"tableName":"tarea","columnId":0}
     	}
@@ -252,10 +344,22 @@ tables = [
 	{	    
 	"tableName":"ranking",
 	"amount" : 2000,
-    "columns": ["id","id_voluntario","id_tarea","puntaje","flg_invitado","flg_participa"],
-    "columnsType": ["txt","dep","dep","rnd","rnd","rnd"],
+    "columns": [
+		#"id",
+		"id_voluntario",
+		"id_tarea",
+		"puntaje",
+		"flg_invitado",
+		"flg_participa"],
+    "columnsType": [
+		#"txt",
+		"dep",
+		"dep",
+		"rnd",
+		"rnd",
+		"rnd"],
     "data" : {
-    	"id":"N",
+    	#"id":"N",
     	"id_voluntario":{"tableName":"voluntario","columnId":0}, 
     	"id_tarea":{"tableName":"tarea","columnId":0},
     	"puntaje":[0,100],
@@ -265,7 +369,7 @@ tables = [
 	}
 ]
 
-dbName = "voluntariado"
+dbName = "postgres"
 swDelete = 'n'  
 swInsert = 'y' 
 main(tables, dbName, swDelete, swInsert)
