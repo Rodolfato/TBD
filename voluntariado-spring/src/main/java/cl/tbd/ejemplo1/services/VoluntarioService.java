@@ -17,6 +17,7 @@ import java.util.List;
 public class VoluntarioService {
 
     private final VoluntarioRepository voluntarioRepository;
+
     VoluntarioService(VoluntarioRepository voluntarioRepository){
         this.voluntarioRepository = voluntarioRepository;
     }
@@ -34,7 +35,7 @@ public class VoluntarioService {
 
     @PostMapping("/voluntarios")
     @ResponseBody
-    public Voluntario createDog(@RequestBody Voluntario voluntario){
+    public Voluntario createVoluntario(@RequestBody Voluntario voluntario){
         Voluntario result = voluntarioRepository.createVoluntario(voluntario);
         return result;
     }
