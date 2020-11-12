@@ -23,7 +23,7 @@ public class HabilidadService {
     }
 
     @GetMapping("/habilidades")
-    public List<Habilidad> getAllHabilidads() {
+    public List<Habilidad> getAllHabilidades() {
         return habilidadRepository.getAllHabilidades();
     }
 

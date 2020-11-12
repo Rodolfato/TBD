@@ -1,0 +1,36 @@
+package cl.tbd.ejemplo1.services;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import cl.tbd.ejemplo1.models.Ranking;
+import cl.tbd.ejemplo1.repositories.RankingRepository;
+
+@CrossOrigin
+@RestController
+public class RankingService {
+
+    private final RankingRepository rankingRepository;
+
+    RankingService(RankingRepository rankingRepository){
+        this.rankingRepository = rankingRepository;
+    }
+
+    @GetMapping("/rankings")
+    public List<Ranking> getAllRankings() {
+        return rankingRepository.getAllRankings();
+    }
+
+    @PostMapping("/rankings")
+    @ResponseBody
+    public Ranking createRanking(@RequestBody Ranking ranking){
+        Ranking result = rankingRepository.createRanking(ranking);
+        return result;
+    }
+}
