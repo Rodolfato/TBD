@@ -174,47 +174,49 @@ tables = [
 	"tableName":"institucion",
 	"amount" : 6 ,
     "columns": [
-		#"id",
+		"id",
 		"nombre",
 		"descrip"],
     "columnsType": [
-		#"txt",
+		"txt",
 		"txt",
 		"txt"],
     "data" : {
-		#"id":"N",
+		"id":"N",
 		"nombre":"institucion_N" ,
 		"descrip":"descrip_N"}
 	},
+
 	{	    
 	"tableName":"voluntario",
 	"amount" : 1000 ,
     "columns": [
-		#"id",
+		"id",
 		"nombre",
 	"fnacimiento"],
     "columnsType": [
-		#"txt",
+		"txt",
 		"txt",
 		"date"],
     "data" : { 
-		#"id":"N",
+		"id":"N",
 		"nombre":"Voluntario_N" ,
 		"fnacimiento":["1970-01-01","2002-01-01"] }
 	},
+
 	{	    
 	"tableName":"habilidad",
 	"amount" : 20 ,
     "columns": [
-		#"id",
+		"id",
 		"descrip"
 		],
     "columnsType": [
-		#"txt",
+		"txt",
 		"txt"
 		],
     "data" : {
-		#"id":"N",
+		"id":"N",
 		"descrip":"Habilidad_N" 
 		}
 	},
@@ -222,34 +224,34 @@ tables = [
 	"tableName":"estado_tarea",
 	"amount" : 3 ,
     "columns": [
-		#"id",
+		"id",
 		"descrip"],
     "columnsType": [
-		#"txt",
+		"txt",
 		"txt"],
     "data" : {
-		#"id":"N",
+		"id":"N",
 		"descrip":"estado_N" }
 	},	
 	{	    
 	"tableName":"emergencia",
 	"amount" : 6,
     "columns": [
-		#"id",
+		"id",
 		"nombre",		
 		"descrip",
 		"finicio",
 		"ffin",
 		"id_institucion"],
     "columnsType": [
-		#"txt",
+		"txt",
 		"txt",
 		"txt",
 		"date",
 		"date",
 		"dep"],
     "data" : {
-		#"id":"N", 
+		"id":"N", 
 		"nombre":"emergencia_N",
 		"descrip":"descrip_N",
 		"finicio":["1990-01-01","2000-01-01"],
@@ -261,15 +263,15 @@ tables = [
 	"tableName":"eme_habilidad",
 	"amount" : 20,
     "columns": [
-		#"id",
+		"id",
 		"id_emergencia",
 		"id_habilidad"],
     "columnsType": [
-		#"txt",
+		"txt",
 		"dep",
 		"dep"],
     "data" : {
-		#"id":"N", 
+		"id":"N", 
 		"id_emergencia":{"tableName":"emergencia","columnId":0}, 
 		"id_habilidad":{"tableName":"habilidad","columnId":0}},
 	},	
@@ -277,15 +279,15 @@ tables = [
 	"tableName":"vol_habilidad",
 	"amount" : 20000,
     "columns": [
-		#"id",
+		"id",
 		"id_voluntario",
 		"id_habilidad"],
     "columnsType": [
-		#"txt",
+		"txt",
 		"dep",
 		"dep"],
     "data" : {
-		#"id":"N", 
+		"id":"N", 
 		"id_voluntario":{"tableName":"voluntario","columnId":0}, 
 		"id_habilidad":{"tableName":"habilidad","columnId":0}},
 	},
@@ -293,7 +295,7 @@ tables = [
 	"tableName":"tarea",
 	"amount" : 100,
     "columns": [
-		#"id",
+		"id",
 		"nombre",
 		"descrip",
 		"cant_vol_requeridos",
@@ -303,7 +305,7 @@ tables = [
 		"ffin",
 		"id_estado"],
     "columnsType": [
-		#"txt",
+		"txt",
 		"txt",
 		"txt",
 		"rnd",
@@ -313,7 +315,7 @@ tables = [
 		"date",
 		"dep"],
     "data" : {
-    	#"id":"N",
+    	"id":"N",
     	"nombre":"tarea_N",
     	"descrip":"descrip_N", 
     	"cant_vol_requeridos":[16,20],
@@ -328,15 +330,15 @@ tables = [
 	"tableName":"tarea_habilidad",
 	"amount" : 200,
     "columns": [
-		#"id",
+		"id",
 		"id_emehab",
 		"id_tarea"],
     "columnsType": [
-		#"txt",
+		"txt",
 		"dep",
 		"dep"],
     "data" : {
-    	#"id":"N",
+    	"id":"N",
     	"id_emehab":{"tableName":"eme_habilidad","columnId":0}, 
     	"id_tarea":{"tableName":"tarea","columnId":0}
     	}
@@ -345,21 +347,21 @@ tables = [
 	"tableName":"ranking",
 	"amount" : 2000,
     "columns": [
-		#"id",
+		"id",
 		"id_voluntario",
 		"id_tarea",
 		"puntaje",
 		"flg_invitado",
 		"flg_participa"],
     "columnsType": [
-		#"txt",
+		"txt",
 		"dep",
 		"dep",
 		"rnd",
 		"rnd",
 		"rnd"],
     "data" : {
-    	#"id":"N",
+    	"id":"N",
     	"id_voluntario":{"tableName":"voluntario","columnId":0}, 
     	"id_tarea":{"tableName":"tarea","columnId":0},
     	"puntaje":[0,100],
@@ -370,6 +372,6 @@ tables = [
 ]
 
 dbName = "postgres"
-swDelete = 'n'  
-swInsert = 'y' 
+swDelete = 'y'  
+swInsert = 'n' 
 main(tables, dbName, swDelete, swInsert)
