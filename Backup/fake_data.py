@@ -20,6 +20,18 @@ def rand_date(iniDate, endDate):
 def get_connection_db(dbName):
     return psycopg2.connect(user="postgres", password="postgres", host="127.0.0.1", port="5432", database=dbName)
 
+def get_data(table, dbName):
+    obj_ids = []
+
+    connection = get_connection_db(dbName)
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT * FROM " + table)
+    for record in cursor:
+        obj_ids.append(record[0])
+    
+    return obj_ids
+
 def fill_voluntario(quantity, dbName):
 
     names = ["Ana", "Enzo", "Hugo", "Juan", "Lara", "Leo", "Luz", "Sara", "Hector", "Helena", "Helena", "Lucia", "Manuel", "Mariana", "Martin", "Martin", "Isabel", "Lucia", "Marta", "Moises", "Raquel", "Samuel", "Alberto", "Felipe", "Beatriz", "Daniela", "Claudia", "Laura", "Daniel", "Pablo", "Alvaro", "Mateo", "Matias", "Diego", "David", "Sergio", "Marcos", "Carlos", "Miguel", "Lucas", "Mario", "Valentina"]
@@ -114,6 +126,35 @@ def fill_habilidad(dbName):
             connection.close()
             print("PostgreSQL connection is closed")
 
+def fill_estado_tarea(dbName):
+    
+    descriptions = ["Finalizada", "Pendiente", "En proceso", "Cancelada"]
+    
+    try:	
+        connection = get_connection_db(dbName)
+        cursor = connection.cursor()
+
+        for i in range(0, len(descriptions)):
+            description = descriptions[i]
+            cursor.execute("INSERT INTO estado_tarea (descrip) VALUES (%s)",
+                            (description, ) )
+
+        connection.commit()
+        print("Se agregaron " + str(len(descriptions)) + " registros en la tabla estado_tarea")   
+
+
+    except (Exception, psycopg2.Error) as error :
+        if(connection):
+            print("Error en el ingreso de datos a tabla estado_tarea: ")
+            print("\t" + str(error))         
+
+    finally:
+        #closing database connection.
+        if(connection):
+            cursor.close()
+            connection.close()
+            print("PostgreSQL connection is closed")
+
 def fill_emergencia(dbName):
 
     ids = []
@@ -130,7 +171,6 @@ def fill_emergencia(dbName):
             ids.append(record[0])
         
         for i in range(0, len(names)):
-           
             name = names[i]
             description = descriptions[i]
             fstart = rand_date("1970-01-01", "2002-01-01")
@@ -155,26 +195,51 @@ def fill_emergencia(dbName):
             connection.close()
             print("PostgreSQL connection is closed")
 
-def get_data(table, dbName):
-    obj_ids = []
 
-    connection = get_connection_db(dbName)
-    cursor = connection.cursor()
 
-    cursor.execute("SELECT * FROM " + table)
-    for record in cursor:
-        obj_ids.append(record[0])
+def fill_tarea(quantity, dbName):
     
-    return obj_ids
+    names = ["Cuidar ninos", "Cuidar animales", "Cuidar adultos mayores", "Levantar escombros", "Contener fuego", "Llevar alimentos", "Enseñar"]
+    ids_eme = get_data("emergencia", dbName)
+    ids_est = get_data("estado_tarea", dbName)
+    
+    try:	
+        connection = get_connection_db(dbName)
+        cursor = connection.cursor()
 
+        for i in range(0, quantity):
+            name = random.choice(names)
+            requeridos = random.randint(1, 50)
+            inscritos = random.randint(0, requeridos)
+            id_eme = random.choice(ids_eme)
+            cursor.execute("SELECT finicio, ffin FROM emergencia WHERE id = %s", (id_eme, ))
+            fechas = cursor.fetchone() #inicio en 0, fin en 1
+            finicio = rand_date(str(fechas[0]), str(fechas[1]))
+            ffin = rand_date(str(finicio), str(fechas[1]))
+            id_est = random.choice(ids_est)
+            cursor.execute("INSERT INTO tarea (nombre, descrip, cant_vol_requeridos, cant_vol_inscritos, id_emergencia, finicio, ffin, id_estado) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
+                            (name, name, requeridos, inscritos, id_eme, finicio, ffin, id_est))
+
+        connection.commit()
+        print("Se agregaron " + str(quantity) + " registros en la tabla tarea")   
+
+
+    except (Exception, psycopg2.Error) as error :
+        if(connection):
+            print("Error en el ingreso de datos a tabla tarea: ")
+            print("\t" + str(error))         
+
+    finally:
+        #closing database connection.
+        if(connection):
+            cursor.close()
+            connection.close()
+            print("PostgreSQL connection is closed")
 
 def fill_eme_habilidad(quantity, dbName):
 
     ids_hab = get_data("habilidad", dbName)
     ids_eme = get_data("emergencia", dbName)
-
-    print(ids_hab)
-    print(ids_eme)
 
     try:	
         connection = get_connection_db(dbName)
@@ -203,11 +268,125 @@ def fill_eme_habilidad(quantity, dbName):
             connection.close()
             print("PostgreSQL connection is closed")
     
+def fill_tarea_habilidad(quantity, dbName):
 
+    ids_emehab = get_data("eme_habilidad", dbName)
+    ids_tarea = get_data("tarea", dbName)
+
+    try:	
+        connection = get_connection_db(dbName)
+        cursor = connection.cursor()
+
+        for i in range(0, quantity):
+            id_emehab = random.choice(ids_emehab)
+            id_tarea = random.choice(ids_tarea)
+
+            cursor.execute("INSERT INTO tarea_habilidad (id_emehab, id_tarea) VALUES (%s, %s)", 
+                            (id_emehab, id_tarea) )
+
+        connection.commit()
+        print("Se agregaron " + str(quantity) + " registros en la tabla tarea_habilidad")   
+
+
+    except (Exception, psycopg2.Error) as error :
+        if(connection):
+            print("Error en el ingreso de datos a tabla tarea_habilidad: ")
+            print("\t" + str(error))         
+
+    finally:
+        #closing database connection.
+        if(connection):
+            cursor.close()
+            connection.close()
+            print("PostgreSQL connection is closed")
+
+def fill_vol_habilidad(quantity, dbName):
+
+    ids_vol = get_data("voluntario", dbName)
+    ids_hab = get_data("habilidad", dbName)
+
+    try:	
+        connection = get_connection_db(dbName)
+        cursor = connection.cursor()
+
+        for i in range(0, quantity):
+            id_vol = random.choice(ids_vol)
+            id_hab = random.choice(ids_hab)
+
+            cursor.execute("INSERT INTO vol_habilidad (id_voluntario, id_habilidad) VALUES (%s, %s)", 
+                            (id_vol, id_hab) )
+
+        connection.commit()
+        print("Se agregaron " + str(quantity) + " registros en la tabla vol_habilidad")   
+
+
+    except (Exception, psycopg2.Error) as error :
+        if(connection):
+            print("Error en el ingreso de datos a tabla vol_habilidad: ")
+            print("\t" + str(error))         
+
+    finally:
+        #closing database connection.
+        if(connection):
+            cursor.close()
+            connection.close()
+            print("PostgreSQL connection is closed")
+            
+def fill_ranking(quantity, dbName):
+
+    ids_vol = get_data("voluntario", dbName)
+    ids_tarea = get_data("tarea", dbName)
+
+    try:	
+        connection = get_connection_db(dbName)
+        cursor = connection.cursor()
+
+        for i in range(0, quantity):
+            id_vol = random.choice(ids_vol)
+            id_tarea = random.choice(ids_tarea)
+            cursor.execute("SELECT id_habilidad FROM vol_habilidad WHERE id_voluntario = %s", (id_vol, ))
+            vol_habs = cursor.fetchall()
+            cursor.execute("SELECT id_habilidad FROM eme_habilidad WHERE id IN (SELECT id_emehab FROM tarea_habilidad WHERE id_tarea = %s)", (id_vol, ))
+            tarea_habs = cursor.fetchall()
+            print(id_vol, vol_habs)
+            print('\n')
+            print(id_tarea, tarea_habs)
+            print('\n')
+            print('\n')
+            puntaje = len(set(tarea_habs) & set(vol_habs))
+            invitado = random.randint(0, 1)
+            if invitado == 1: 
+            	participa = random.randint(0, 1)
+            else: 
+            	participa = 0
+            cursor.execute("INSERT INTO ranking (id_voluntario, id_tarea, puntaje, flg_invitado, flg_participa) VALUES (%s, %s, %s, %s, %s)", 
+                            (id_vol, id_tarea, puntaje, invitado, participa) )
+
+        connection.commit()
+        print("Se agregaron " + str(quantity) + " registros en la tabla ranking")   
+
+
+    except (Exception, psycopg2.Error) as error :
+        if(connection):
+            print("Error en el ingreso de datos a tabla ranking: ")
+            print("\t" + str(error))         
+
+    finally:
+        #closing database connection.
+        if(connection):
+            cursor.close()
+            connection.close()
+            print("PostgreSQL connection is closed")
+                      
 
 dbName_f = "postgres"
-fill_voluntario(100, dbName_f)
+fill_voluntario(30, dbName_f)
 fill_institucion(dbName_f)
 fill_habilidad(dbName_f)
+fill_estado_tarea(dbName_f)
 fill_emergencia(dbName_f)
-fill_eme_habilidad(15, dbName_f)
+fill_tarea(10, dbName_f)
+fill_eme_habilidad(200, dbName_f)
+fill_tarea_habilidad(200, dbName_f)
+fill_vol_habilidad(200, dbName_f)
+fill_ranking(10, dbName_f)

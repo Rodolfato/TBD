@@ -62,7 +62,7 @@ def delete_table(tableName,dbName):
     connection = get_connection_db(dbName)
     cursor = connection.cursor()
     #borrar todo para la prueba
-    cursor.execute("delete from "+tableName)
+    cursor.execute("TRUNCATE TABLE "+tableName+" RESTART IDENTITY CASCADE") #borra la tabla y resetea los id con auto increment
     connection.commit()
 
     print ("se eliminaron los datos de la tabla "+ tableName )
@@ -189,7 +189,7 @@ tables = [
 
 	{	    
 	"tableName":"voluntario",
-	"amount" : 1000 ,
+	"amount" : 100 ,
     "columns": [
 		"id",
 		"nombre",
