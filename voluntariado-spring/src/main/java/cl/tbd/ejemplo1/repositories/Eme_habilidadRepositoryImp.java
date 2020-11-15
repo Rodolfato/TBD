@@ -3,11 +3,13 @@ package cl.tbd.ejemplo1.repositories;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
 import cl.tbd.ejemplo1.models.Eme_habilidad;
 
+@Repository
 public class Eme_habilidadRepositoryImp implements Eme_habilidadRepository {
 
     @Autowired

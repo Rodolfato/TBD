@@ -2,15 +2,16 @@ package cl.tbd.ejemplo1.services;
 
 import java.util.List;
 
+import cl.tbd.ejemplo1.models.Eme_habilidad;
+import cl.tbd.ejemplo1.repositories.Eme_habilidadRepository;
+
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import cl.tbd.ejemplo1.models.Eme_habilidad;
-import cl.tbd.ejemplo1.repositories.Eme_habilidadRepository;
 
 
 @CrossOrigin
@@ -28,7 +29,7 @@ public class Eme_habilidadService {
         return eme_habilidadRepository.getAllEme_habilidades();
     }
 
-    @PostMapping("/tarea_habilidades")
+    @PostMapping("/eme_habilidades")
     @ResponseBody
     public Eme_habilidad createEme_habilidad(@RequestBody Eme_habilidad eme_habilidad){
         Eme_habilidad result = eme_habilidadRepository.createEme_habilidad(eme_habilidad);

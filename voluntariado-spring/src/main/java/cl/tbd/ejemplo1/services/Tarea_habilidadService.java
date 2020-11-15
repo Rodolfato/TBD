@@ -29,7 +29,7 @@ public class Tarea_habilidadService {
 
     @PostMapping("/tarea_habilidades")
     @ResponseBody
-    public Tarea_habilidad createTarea(@RequestBody Tarea_habilidad tarea_habilidad){
+    public Tarea_habilidad createTarea_habilidad(@RequestBody Tarea_habilidad tarea_habilidad){
         Tarea_habilidad result = tarea_habilidadRepository.createTarea_habilidad(tarea_habilidad);
         return result;
     }    
