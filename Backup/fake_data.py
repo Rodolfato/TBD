@@ -199,7 +199,7 @@ def fill_emergencia(dbName):
 
 def fill_tarea(quantity, dbName):
     
-    names = ["Cuidar ninos", "Cuidar animales", "Cuidar adultos mayores", "Levantar escombros", "Contener fuego", "Llevar alimentos", "Enseñar"]
+    names = ["Cuidar ninos", "Cuidar animales", "Cuidar adultos mayores", "Levantar escombros", "Contener fuego", "Llevar alimentos", "Ensenar"]
     ids_eme = get_data("emergencia", dbName)
     ids_est = get_data("estado_tarea", dbName)
     
@@ -241,24 +241,35 @@ def fill_eme_habilidad(quantity, dbName):
     ids_hab = get_data("habilidad", dbName)
     ids_eme = get_data("emergencia", dbName)
 
+    already_posted = []
+    
+
     try:	
         connection = get_connection_db(dbName)
         cursor = connection.cursor()
 
         for i in range(0, quantity):
+            pair = []
             id_h = random.choice(ids_hab)
             id_e = random.choice(ids_eme)
+            pair.append(id_h)
+            pair.append(id_e)        
 
-            cursor.execute("INSERT INTO eme_habilidad (id_emergencia, id_habilidad) VALUES (%s, %s)", 
-                            (id_e, id_h) )
+            if(pair not in already_posted):
+                cursor.execute("INSERT INTO eme_habilidad (id_emergencia, id_habilidad) VALUES (%s, %s)", 
+                                (id_e, id_h) )
+                
+
+            already_posted.append(pair)
+            
 
         connection.commit()
-        print("Se agregaron " + str(quantity) + " registros en la tabla emergencia")   
+        print("Se agregaron " + str(quantity) + " registros en la tabla eme_habilidad")   
 
 
     except (Exception, psycopg2.Error) as error :
         if(connection):
-            print("Error en el ingreso de datos a tabla emergencia: ")
+            print("Error en el ingreso de datos a tabla eme_habilidad: ")
             print("\t" + str(error))         
 
     finally:
