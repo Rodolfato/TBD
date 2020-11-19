@@ -364,7 +364,8 @@ def fill_ranking(quantity, dbName):
             print(id_tarea, tarea_habs)
             print('\n')
             print('\n')
-            puntaje = len(set(tarea_habs) & set(vol_habs))
+            #puntaje = len(set(tarea_habs) & set(vol_habs))
+            puntaje = random.randint(0,10)
             invitado = random.randint(0, 1)
             if invitado == 1: 
             	participa = random.randint(0, 1)
@@ -391,13 +392,13 @@ def fill_ranking(quantity, dbName):
                       
 
 dbName_f = "postgres"
-fill_voluntario(30, dbName_f)
+fill_voluntario(1000, dbName_f)
 fill_institucion(dbName_f)
 fill_habilidad(dbName_f)
 fill_estado_tarea(dbName_f)
 fill_emergencia(dbName_f)
-fill_tarea(10, dbName_f)
+fill_tarea(25, dbName_f)
 fill_eme_habilidad(200, dbName_f)
 fill_tarea_habilidad(200, dbName_f)
 fill_vol_habilidad(200, dbName_f)
-fill_ranking(10, dbName_f)
+fill_ranking(1000, dbName_f)

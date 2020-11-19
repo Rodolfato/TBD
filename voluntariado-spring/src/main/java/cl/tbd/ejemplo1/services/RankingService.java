@@ -2,6 +2,7 @@ package cl.tbd.ejemplo1.services;
 
 import java.util.List;
 
+import org.json.JSONArray;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,5 +33,11 @@ public class RankingService {
     public Ranking createRanking(@RequestBody Ranking ranking){
         Ranking result = rankingRepository.createRanking(ranking);
         return result;
+    }
+
+    @PostMapping("/rankings/rankByTask")
+    public String getRankByTask(long id_tarea, int quantity){
+        JSONArray result = rankingRepository.getRankByTask(id_tarea, quantity);
+        return result.toString();
     }
 }
