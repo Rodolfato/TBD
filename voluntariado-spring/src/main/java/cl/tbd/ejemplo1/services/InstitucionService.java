@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,6 +33,13 @@ public class InstitucionService {
     @ResponseBody
     public Institucion createInstitucion(@RequestBody Institucion institucion){
         Institucion result = institucionRepository.createInstitucion(institucion);
+        return result;
+    }
+
+    @PutMapping("/instituciones/{id}")
+    @ResponseBody
+    public Institucion updateInstitucion(@RequestBody Institucion institucion, @PathVariable long id){
+        Institucion result = institucionRepository.updateInstitucion(institucion, id);
         return result;
     }
     

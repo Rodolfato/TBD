@@ -40,4 +40,20 @@ public class InstitucionRepositoryImp implements InstitucionRepository {
             return null;
         }        
     }
+
+    @Override
+    public Institucion updateInstitucion(Institucion institucion, long id) {
+        try(Connection conn = sql2o.open()){
+            conn.createQuery("UPDATE institucion SET nombre = :iNombre, descrip = :iDescrip WHERE id = :updateId")
+                .addParameter("updateId", id)
+                .addParameter("iNombre", institucion.getNombre())
+                .addParameter("iDescrip", institucion.getDescrip())
+                .executeUpdate();
+            institucion.setId(id);
+            return institucion;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 }

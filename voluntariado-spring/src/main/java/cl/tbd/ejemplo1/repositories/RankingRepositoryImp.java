@@ -85,5 +85,24 @@ public class RankingRepositoryImp implements RankingRepository {
             System.out.println(e.getMessage());
             return null;
         }
-    }    
+    }
+    
+    @Override
+    public Ranking updateRanking(Ranking ranking, long id) {
+        try(Connection conn = sql2o.open()){
+            conn.createQuery("UPDATE ranking SET id_voluntario = :idVol, id_tarea = :idTar, puntaje = :rPuntaje, flg_invitado = :rInv, flg_participa = :rPart WHERE id = :updateId")
+                .addParameter("updateId", id)
+                .addParameter("idVol", ranking.getId_voluntario())
+                .addParameter("idTar", ranking.getId_tarea())
+                .addParameter("rPuntaje", ranking.getPuntaje())
+                .addParameter("rInv", ranking.getFlg_invitado())
+                .addParameter("rPart", ranking.getFlg_participa())
+                .executeUpdate();
+            ranking.setId(id);
+            return ranking;        
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }        
+    }
 }

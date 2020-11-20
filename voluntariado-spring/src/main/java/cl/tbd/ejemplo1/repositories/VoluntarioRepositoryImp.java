@@ -37,10 +37,28 @@ public class VoluntarioRepositoryImp implements VoluntarioRepository {
     @Override
     public Voluntario createVoluntario(Voluntario voluntario) {
         try(Connection conn = sql2o.open()){
-            long insertedId = (long) conn.createQuery("INSERT INTO voluntario (name) values (:voluntarioName)", true)
-                    .addParameter("voluntarioName", voluntario.getNombre())
+            long insertedId = (long) conn.createQuery("INSERT INTO voluntario (nombre, fnacimiento) values (:vNombre, :vNacimiento)", true)
+                    .addParameter("vNombre", voluntario.getNombre())
+                    .addParameter("vNacimiento", voluntario.getFnacimiento())
                     .executeUpdate().getKey();
                     voluntario.setId(insertedId);
+            return voluntario;        
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+        
+    }
+
+    @Override
+    public Voluntario updateVoluntario(Voluntario voluntario, long id) {
+        try(Connection conn = sql2o.open()){
+            conn.createQuery("UPDATE voluntario SET nombre = :vNombre, fnacimiento = :vNacimiento WHERE id = :updateId")
+                .addParameter("updateId", id)
+                .addParameter("vNombre", voluntario.getNombre())
+                .addParameter("vNacimiento", voluntario.getFnacimiento())
+                .executeUpdate();
+            voluntario.setId(id);
             return voluntario;        
         }catch(Exception e){
             System.out.println(e.getMessage());

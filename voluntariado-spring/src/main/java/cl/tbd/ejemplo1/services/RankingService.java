@@ -5,7 +5,9 @@ import java.util.List;
 import org.json.JSONArray;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,5 +41,12 @@ public class RankingService {
     public String getRankByTask(long id_tarea, int quantity){
         JSONArray result = rankingRepository.getRankByTask(id_tarea, quantity);
         return result.toString();
+    }
+
+    @PutMapping("/rankings/{id}")
+    @ResponseBody
+    public Ranking updateRanking(@RequestBody Ranking ranking, @PathVariable long id){
+        Ranking result = rankingRepository.updateRanking(ranking, id);
+        return result;
     }
 }

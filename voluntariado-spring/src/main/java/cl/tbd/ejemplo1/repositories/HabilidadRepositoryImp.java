@@ -46,6 +46,21 @@ public class HabilidadRepositoryImp implements HabilidadRepository {
             return null;
         }        
     }
+
+    @Override
+    public Habilidad updateHabilidad(Habilidad habilidad, long id) {
+        try(Connection conn = sql2o.open()){
+            conn.createQuery("UPDATE habilidad SET descrip = :habilidadDescrip WHERE id = :updateId")
+                .addParameter("updateId", id)
+                .addParameter("habilidadDescrip", habilidad.getDescrip())
+                .executeUpdate();
+            habilidad.setId(id);
+            return habilidad;        
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }        
+    }
  
      
 }

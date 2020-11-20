@@ -7,4 +7,5 @@ import cl.tbd.ejemplo1.models.Institucion;
 public interface InstitucionRepository {
     public List<Institucion> getAllInstituciones();
     public Institucion createInstitucion(Institucion institucion);
+    public Institucion updateInstitucion(Institucion institucion, long id);
 }
