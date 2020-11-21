@@ -45,6 +45,7 @@
 </template>
 <script>
 export default {
+    
     data(){
         return{
             message:'',
@@ -55,8 +56,24 @@ export default {
     methods:{
         send:async function(){
             this.message = '';
-            if (this.newEmergencia.nombre == ''){
-                this.message = 'Debes ingresar un nombre'
+            if(!this.newEmergencia.nombre){
+                this.message = 'Debe ingresar un nombre'
+                return false
+            }
+            if(!this.newEmergencia.descrip){
+                this.message = 'Debe ingresar una descripción'
+                return false
+            }
+            if(!this.newEmergencia.finicio){
+                this.message = 'Debe ingresar una fecha de inicio'
+                return false
+            }
+            if(!this.newEmergencia.ffin){
+                this.message = 'Debe ingresar una fecha de termino'
+                return false
+            }
+            if(!this.newEmergencia.id_institucion){
+                this.message = 'Debe ingresar una institución encargada de la emergencia'
                 return false
             }
             try {
