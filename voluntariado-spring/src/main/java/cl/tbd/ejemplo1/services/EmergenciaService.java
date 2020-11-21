@@ -3,8 +3,11 @@ package cl.tbd.ejemplo1.services;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,4 +36,18 @@ public class EmergenciaService {
         Emergencia result = emergenciaRepository.createEmergencia(emergencia);
         return result;
     }
+
+    @PutMapping("/emergencias/{id}")
+    @ResponseBody
+    public Emergencia updateEmergencia(@RequestBody Emergencia ranking, @PathVariable long id){
+        Emergencia result = emergenciaRepository.updateEmergencia(ranking, id);
+        return result;
+    }
+
+    @DeleteMapping("/emergencias/{id}")
+    public List<Emergencia> deleteEmergencia(@PathVariable long id){
+        return emergenciaRepository.deleteEmergencia(id);
+    }
+
+    
 }

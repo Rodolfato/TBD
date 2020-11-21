@@ -39,6 +39,35 @@ public class Estado_tareaRepositoryImp implements Estado_tareaRepository {
             return null;
         }        
     }
+
+    @Override
+    public Estado_tarea updateEstado_tarea(Estado_tarea estado_tarea, long id) {
+        try(Connection conn = sql2o.open()){
+            conn.createQuery("UPDATE estado_tarea SET descrip = :e_tdescrip WHERE id = :updateId")
+                .addParameter("updateId", id)
+                .addParameter("e_tdescrip", estado_tarea.getDescrip())
+                .executeUpdate();
+                estado_tarea.setId(id);
+            return estado_tarea;        
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }        
+    }
+
+    @Override
+    public List<Estado_tarea> deleteEstado_tarea(long id) {
+        try(Connection conn = sql2o.open()){
+            conn.createQuery("DELETE FROM estado_tarea WHERE id = :deleteId")
+                .addParameter("deleteId", id)
+                .executeUpdate();
+            return getAllEstado_tareas();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
  
      
 }
