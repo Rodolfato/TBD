@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,5 +49,10 @@ public class RankingService {
     public Ranking updateRanking(@RequestBody Ranking ranking, @PathVariable long id){
         Ranking result = rankingRepository.updateRanking(ranking, id);
         return result;
+    }
+
+    @DeleteMapping("/rankings/{id}")
+    public List<Ranking> deleteRanking(@PathVariable long id){
+        return rankingRepository.deleteRanking(id);
     }
 }

@@ -61,6 +61,19 @@ public class HabilidadRepositoryImp implements HabilidadRepository {
             return null;
         }        
     }
+
+    @Override
+    public List<Habilidad> deleteHabilidad(long id) {
+        try(Connection conn = sql2o.open()){
+            conn.createQuery("DELETE FROM habilidad WHERE id = :deleteId")
+                .addParameter("deleteId", id)
+                .executeUpdate();
+            return getAllHabilidades();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
  
      
 }

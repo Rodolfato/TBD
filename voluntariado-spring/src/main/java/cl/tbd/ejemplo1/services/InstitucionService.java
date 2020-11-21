@@ -3,6 +3,7 @@ package cl.tbd.ejemplo1.services;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,6 +42,11 @@ public class InstitucionService {
     public Institucion updateInstitucion(@RequestBody Institucion institucion, @PathVariable long id){
         Institucion result = institucionRepository.updateInstitucion(institucion, id);
         return result;
+    }
+
+    @DeleteMapping("/instituciones/{id}")
+    public List<Institucion> deleteInstitucion(@PathVariable long id){
+        return institucionRepository.deleteInstitucion(id);
     }
     
 }

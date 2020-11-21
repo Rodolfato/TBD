@@ -8,4 +8,5 @@ public interface InstitucionRepository {
     public List<Institucion> getAllInstituciones();
     public Institucion createInstitucion(Institucion institucion);
     public Institucion updateInstitucion(Institucion institucion, long id);
+    public List<Institucion> deleteInstitucion(long id);
 }

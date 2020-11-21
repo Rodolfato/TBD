@@ -105,4 +105,17 @@ public class RankingRepositoryImp implements RankingRepository {
             return null;
         }        
     }
+
+    @Override
+    public List<Ranking> deleteRanking(long id) {
+        try(Connection conn = sql2o.open()){
+            conn.createQuery("DELETE FROM ranking WHERE id = :deleteId")
+                .addParameter("deleteId", id)
+                .executeUpdate();
+            return getAllRankings();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 }

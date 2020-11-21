@@ -4,6 +4,7 @@ import cl.tbd.ejemplo1.models.Voluntario;
 import cl.tbd.ejemplo1.repositories.VoluntarioRepository;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,5 +48,10 @@ public class VoluntarioService {
     public Voluntario updateVoluntario(@RequestBody Voluntario voluntario, @PathVariable long id){
         Voluntario result = voluntarioRepository.updateVoluntario(voluntario, id);
         return result;
+    }
+
+    @DeleteMapping("/voluntarios/{id}")
+    public List<Voluntario> deleteVoluntario(@PathVariable long id){
+        return voluntarioRepository.deleteVoluntario(id);
     }
 }

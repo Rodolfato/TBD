@@ -56,4 +56,17 @@ public class InstitucionRepositoryImp implements InstitucionRepository {
             return null;
         }
     }
+
+    @Override
+    public List<Institucion> deleteInstitucion(long id) {
+        try(Connection conn = sql2o.open()){
+            conn.createQuery("DELETE FROM institucion WHERE id = :deleteId")
+                .addParameter("deleteId", id)
+                .executeUpdate();
+            return getAllInstituciones();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 }

@@ -6,6 +6,7 @@ import cl.tbd.ejemplo1.repositories.HabilidadRepository;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,6 +48,11 @@ public class HabilidadService {
     public Habilidad updateHabilidad(@RequestBody Habilidad habilidad, @PathVariable long id){
         Habilidad result = habilidadRepository.updateHabilidad(habilidad, id);
         return result;
+    }
+
+    @DeleteMapping("/habilidades/{id}")
+    public List<Habilidad> deleteHabilidad(@PathVariable long id){
+        return habilidadRepository.deleteHabilidad(id);
     }
 
 }
