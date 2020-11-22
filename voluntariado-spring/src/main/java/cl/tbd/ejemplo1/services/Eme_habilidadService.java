@@ -50,6 +50,18 @@ public class Eme_habilidadService {
         return eme_habilidadRepository.deleteEme_habilidad(id);
     }
 
+    @PutMapping("/eme_habilidades/{id}")
+    @ResponseBody
+    public Eme_habilidad updateEme_habilidad(@RequestBody Eme_habilidad eme_habilidad, @PathVariable long id){
+        Eme_habilidad result = eme_habilidadRepository.updateEme_Habilidad(eme_habilidad, id);
+        return result;
+    }
+
+
+    
+
+    
+
 
     
 }

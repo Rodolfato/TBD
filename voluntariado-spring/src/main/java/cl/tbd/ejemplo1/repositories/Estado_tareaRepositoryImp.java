@@ -43,11 +43,11 @@ public class Estado_tareaRepositoryImp implements Estado_tareaRepository {
     @Override
     public Estado_tarea updateEstado_tarea(Estado_tarea estado_tarea, long id) {
         try(Connection conn = sql2o.open()){
-            conn.createQuery("UPDATE estado_tarea SET descrip = :e_tdescrip WHERE id = :updateId")
+            conn.createQuery("UPDATE estado_tarea SET descrip = :newDescrip WHERE id = :updateId")
                 .addParameter("updateId", id)
-                .addParameter("e_tdescrip", estado_tarea.getDescrip())
+                .addParameter("newDescrip", estado_tarea..getDescrip())
                 .executeUpdate();
-                estado_tarea.setId(id);
+            estado_tarea.setId(id);
             return estado_tarea;        
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -67,7 +67,6 @@ public class Estado_tareaRepositoryImp implements Estado_tareaRepository {
             return null;
         }
     }
-
  
      
 }
