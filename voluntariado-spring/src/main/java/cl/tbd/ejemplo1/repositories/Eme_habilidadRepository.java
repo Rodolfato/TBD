@@ -11,6 +11,6 @@ public interface Eme_habilidadRepository {
     public Eme_habilidad updateEme_habilidad(Eme_habilidad eme_habilidad, long id);
     public List<Eme_habilidad> deleteEme_habilidad(long id);
 
-    public Eme_habilidad updateEme_habilidad(Eme_habilidad eme_habilidad, long id);
+    
     
 }
