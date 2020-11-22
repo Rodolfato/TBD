@@ -28,14 +28,21 @@ $ git clone https://github.com/Rodolfato/TBD.git
 Debe ingresar el usuario y contraseña de la instancia de la base de datos PostgreSQL en los siguientes archivos encontrados dentro de la carpeta *Backup*:
 
 Dentro de *fake_data.py* y *load_data.py*:
+
 ![alt text](https://imgur.com/jKDmWMo.png)
+
 Y el nombre de la base de datos en la parte final de ambos archivos:
+
 ![alt text](https://imgur.com/gZmXm1c.png)
+
 Reemplazando *user*, *password*, *port* y *dbName_f* según corresponda.
 
 Una vez realizado esto es necesario cargar el backup de la base de datos utilizando PgAdmin4:
+
 ![alt text](https://imgur.com/FU9zbCz.png)
+
 Y cargar el archivo llamado: *voluntariado_backup_fk_actions*
+
 ![alt text](https://imgur.com/MMZXHpz.png)
 
 Una vez cargado el backup a la base de datos, es necesario rellenarla de datos de prueba utilizando el programa llamado *fake_data.py*, ejecutando el siguiente comando dentro de la carpeta *Backup*:
@@ -45,33 +52,46 @@ $ python fake_data.py
 ```
 
 Si se desea borrar datos guardados con anterioridad, se debe ejecutar el programa *load_data.py*, de la misma forma:
+
 ```sh
 $ python load_data.py
 ```
 ### Back end
+
 Primero es necesario editar el usuario y contraseña de la base de datos en el archivo *application.properties* encontrado en *.../voluntariado-spring/src/main/resources*, cambiando los datos según corresponda:
+
 ![alt text](https://imgur.com/0OKPujz.png)
 
 Para hacer el *build* y correr el back end es necesario navegar al siguiente directorio *.../voluntariado-spring/* y ejecutar el siguiente comando en el terminal:
+
 ```sh
 $ gradle build
 ```
+
 Seguido de:
+
 ```sh
 $ gradle bootRun
 ```
 
 Ahora es posible ingresar a través de un navegador de internet a la dirección *localhost:3000* y recibir un mensaje de *Hello World*:
+
 ![alt text](https://imgur.com/2E9nplh.png)
+
 ### Front end
+
 Una vez iniciado el back en de la aplicación es necesario, navegar al directorio *.../ejemplo-vue/* y en un terminal ejecutar el siguiente comando:
+
 ```sh
 $ npm install
 ```
+
 Seguido de
+
 ```sh
 $ npm run serve
 ```
+
 Y al aparecer este mensaje en su terminal:
 
 ![alt text](https://imgur.com/qXB0yQs.png)
