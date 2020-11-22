@@ -46,5 +46,39 @@ public class TareaRepositoryImp implements TareaRepository {
             return null;
         }        
     }
+
+    @Override
+    public Tarea updateTarea(Tarea tarea, long id) {
+        try(Connection conn = sql2o.open()){
+            conn.createQuery("UPDATE tarea SET nombre = :tNombre, descrip = :tDescrip, cant_vol_requeridos = :tRequeridos, cant_vol_inscritos = :tInscritos, id_emergencia = :idEme, id_estado = :idEst finicio = :tInicio, ffin = :tFin WHERE id = :updateId")
+                    .addParameter("tNombre", tarea.getNombre())
+                    .addParameter("tDescrip", tarea.getDescrip())
+                    .addParameter("tRequeridos", tarea.getCant_vol_requeridos())
+                    .addParameter("tInscritos", tarea.getCant_vol_inscritos())
+                    .addParameter("idEme", tarea.getId_emergencia())
+                    .addParameter("tInicio", tarea.getFinicio())
+                    .addParameter("tFin", tarea.getFfin())                    
+                    .addParameter("idEst", tarea.getId_estado())
+                    .executeUpdate().getKey();
+                    tarea.setId(id);
+            return tarea;        
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }        
+    }
+
+    @Override
+    public List<Tarea> deleteTarea(long id) {
+        try(Connection conn = sql2o.open()){
+            conn.createQuery("DELETE FROM tarea WHERE id = :deleteId")
+                .addParameter("deleteId", id)
+                .executeUpdate();
+            return getAllTareas();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
     
 }

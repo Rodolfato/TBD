@@ -42,5 +42,36 @@ public class Tarea_habilidadRepositoryImp implements Tarea_habilidadRepository {
     }
 
 
+
+    @Override
+    public Tarea_habilidad updateTarea_habilidad(Tarea_habilidad tarea_habilidad, long id) {
+        try(Connection conn = sql2o.open()){
+            conn.createQuery("UPDATE tarea_habilidad SET id_emehab = :new_id_emehab, id_tarea = :new_id_tarea  WHERE id = :updateId")
+                .addParameter("updateId", id)
+                .addParameter("new_id_emehab", tarea_habilidad.getId_emehab())
+                .addParameter("new_id_tarea", tarea_habilidad.getId_tarea())
+                .executeUpdate();
+            tarea_habilidad.setId(id);
+            return tarea_habilidad;        
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }        
+    }
+
+    @Override
+    public List<Tarea_habilidad> deleteTarea_habilidad(long id) {
+        try(Connection conn = sql2o.open()){
+            conn.createQuery("DELETE FROM tarea_habilidad WHERE id = :deleteId")
+                .addParameter("deleteId", id)
+                .executeUpdate();
+            return getAllTarea_habilidades();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+
     
 }

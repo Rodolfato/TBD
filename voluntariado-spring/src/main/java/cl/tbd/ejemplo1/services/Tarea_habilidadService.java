@@ -3,8 +3,11 @@ package cl.tbd.ejemplo1.services;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,5 +35,17 @@ public class Tarea_habilidadService {
     public Tarea_habilidad createTarea_habilidad(@RequestBody Tarea_habilidad tarea_habilidad){
         Tarea_habilidad result = tarea_habilidadRepository.createTarea_habilidad(tarea_habilidad);
         return result;
-    }    
+    }   
+    
+    @PutMapping("/tarea_habilidades/{id}")
+    @ResponseBody
+    public Tarea_habilidad updateRanking(@RequestBody Tarea_habilidad tarea_habilidad, @PathVariable long id){
+        Tarea_habilidad result = tarea_habilidadRepository.updateTarea_habilidad(tarea_habilidad, id);
+        return result;
+    }
+
+    @DeleteMapping("/tarea_habilidad/{id}")
+    public List<Tarea_habilidad> deleteTarea_habilidad(@PathVariable long id){
+        return tarea_habilidadRepository.deleteTarea_habilidad(id);
+    }
 }
