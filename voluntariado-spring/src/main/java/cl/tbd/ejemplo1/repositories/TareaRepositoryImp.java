@@ -50,7 +50,8 @@ public class TareaRepositoryImp implements TareaRepository {
     @Override
     public Tarea updateTarea(Tarea tarea, long id) {
         try(Connection conn = sql2o.open()){
-            conn.createQuery("UPDATE tarea SET nombre = :tNombre, descrip = :tDescrip, cant_vol_requeridos = :tRequeridos, cant_vol_inscritos = :tInscritos, id_emergencia = :idEme, id_estado = :idEst finicio = :tInicio, ffin = :tFin WHERE id = :updateId")
+            conn.createQuery("UPDATE tarea SET nombre = :tNombre, descrip = :tDescrip, cant_vol_requeridos = :tRequeridos, cant_vol_inscritos = :tInscritos, id_emergencia = :idEme, id_estado = :idEst, finicio = :tInicio, ffin = :tFin WHERE id = :updateId")
+                    .addParameter("updateId", id)
                     .addParameter("tNombre", tarea.getNombre())
                     .addParameter("tDescrip", tarea.getDescrip())
                     .addParameter("tRequeridos", tarea.getCant_vol_requeridos())
@@ -59,7 +60,7 @@ public class TareaRepositoryImp implements TareaRepository {
                     .addParameter("tInicio", tarea.getFinicio())
                     .addParameter("tFin", tarea.getFfin())                    
                     .addParameter("idEst", tarea.getId_estado())
-                    .executeUpdate().getKey();
+                    .executeUpdate();
                     tarea.setId(id);
             return tarea;        
         }catch(Exception e){

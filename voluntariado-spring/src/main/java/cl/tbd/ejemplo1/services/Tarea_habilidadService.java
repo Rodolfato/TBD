@@ -44,7 +44,7 @@ public class Tarea_habilidadService {
         return result;
     }
 
-    @DeleteMapping("/tarea_habilidad/{id}")
+    @DeleteMapping("/tarea_habilidades/{id}")
     public List<Tarea_habilidad> deleteTarea_habilidad(@PathVariable long id){
         return tarea_habilidadRepository.deleteTarea_habilidad(id);
     }

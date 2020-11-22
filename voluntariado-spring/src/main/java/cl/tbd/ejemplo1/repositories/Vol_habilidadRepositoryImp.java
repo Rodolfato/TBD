@@ -43,7 +43,7 @@ public class Vol_habilidadRepositoryImp implements Vol_habilidadRepository {
     @Override
     public Vol_habilidad updateVol_habilidad(Vol_habilidad vol_habilidad, long id) {
         try(Connection conn = sql2o.open()){
-            conn.createQuery("UPDATE vol_habilidad SET id_voluntario = :idVol, habilidad = :idHab  WHERE id = :updateId")
+            conn.createQuery("UPDATE vol_habilidad SET id_voluntario = :idVol, id_habilidad = :idHab  WHERE id = :updateId")
                 .addParameter("updateId", id)
                 .addParameter("idVol", vol_habilidad.getId_voluntario())
                 .addParameter("idHab", vol_habilidad.getId_habilidad())

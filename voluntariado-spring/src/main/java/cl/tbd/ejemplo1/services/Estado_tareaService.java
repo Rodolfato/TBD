@@ -37,14 +37,14 @@ public class Estado_tareaService {
         return result;
     }
 
-    @PutMapping("/estado_tarea/{id}")
+    @PutMapping("/estado_tareas/{id}")
     @ResponseBody
     public Estado_tarea updateEstado_tarea(@RequestBody Estado_tarea estado_tarea, @PathVariable long id){
         Estado_tarea result = estado_tareaRepository.updateEstado_tarea(estado_tarea, id);
         return result;
     }
 
-    @DeleteMapping("/estado_tarea/{id}")
+    @DeleteMapping("/estado_tareas/{id}")
     public List<Estado_tarea> deleteEstado_tarea(@PathVariable long id){
         return estado_tareaRepository.deleteEstado_tarea(id);
     }
