@@ -42,20 +42,20 @@ public class Eme_habilidadRepositoryImp implements Eme_habilidadRepository {
     }
 
     @Override
-    public Eme_habilidad updateEme_habilidad(Eme_habilidad eme_habilidad, long id) {
+    public Eme_habilidad updateEme_habilidad(Eme_habilidad eme_habilidad, long id){
         try(Connection conn = sql2o.open()){
-            conn.createQuery("UPDATE eme_habilidad SET nombre = :eh_id_emergencia, descrip = :eh_id_habilidad WHERE id = :updateId")
+            conn.createQuery("UPDATE eme_habilidad SET id_emergencia = :new_id_emergencia, id_habilidad = :new_id_habilidad WHERE id = :updateId")
                 .addParameter("updateId", id)
-                .addParameter("eh_id_emergencia", eme_habilidad.getId_emergencia())
-                .addParameter("eh_id_habilidad", eme_habilidad.getId_habilidad())
+                .addParameter("new_id_emergencia", eme_habilidad.getId_emergencia())
+                .addParameter("new_id_habilidad", eme_habilidad.getId_habilidad())
                 .executeUpdate();
-                eme_habilidad.setId(id);
-            return eme_habilidad;        
+            eme_habilidad.setId(id);
+            return eme_habilidad;
         }catch(Exception e){
             System.out.println(e.getMessage());
             return null;
-        }        
-    }
+        }
+    }  
 
     @Override
     public List<Eme_habilidad> deleteEme_habilidad(long id) {
@@ -69,6 +69,11 @@ public class Eme_habilidadRepositoryImp implements Eme_habilidadRepository {
             return null;
         }
     }
+        
+    
+
+
+
 
 
     

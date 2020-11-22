@@ -9,4 +9,6 @@ public interface EmergenciaRepository {
     public Emergencia createEmergencia(Emergencia emergencia);
     public Emergencia updateEmergencia(Emergencia emergencia, long id);
     public List<Emergencia> deleteEmergencia(long id);
+
+
 }

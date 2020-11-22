@@ -12,4 +12,5 @@ public interface Eme_habilidadRepository {
     public List<Eme_habilidad> deleteEme_habilidad(long id);
 
     
+    
 }

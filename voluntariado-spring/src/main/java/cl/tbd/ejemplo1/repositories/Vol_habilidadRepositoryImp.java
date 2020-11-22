@@ -39,4 +39,35 @@ public class Vol_habilidadRepositoryImp implements Vol_habilidadRepository {
             return null;
         }        
     }
+
+    @Override
+    public Vol_habilidad updateVol_habilidad(Vol_habilidad vol_habilidad, long id) {
+        try(Connection conn = sql2o.open()){
+            conn.createQuery("UPDATE vol_habilidad SET id_voluntario = :idVol, id_habilidad = :idHab  WHERE id = :updateId")
+                .addParameter("updateId", id)
+                .addParameter("idVol", vol_habilidad.getId_voluntario())
+                .addParameter("idHab", vol_habilidad.getId_habilidad())
+                .executeUpdate();
+            vol_habilidad.setId(id);
+            return vol_habilidad;        
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }        
+    }
+
+    @Override
+    public List<Vol_habilidad> deleteVol_habilidad(long id) {
+        try(Connection conn = sql2o.open()){
+            conn.createQuery("DELETE FROM vol_habilidad WHERE id = :deleteId")
+                .addParameter("deleteId", id)
+                .executeUpdate();
+            return getAllVol_habilidades();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+
 }

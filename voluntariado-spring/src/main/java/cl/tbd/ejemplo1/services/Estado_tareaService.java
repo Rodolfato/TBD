@@ -39,8 +39,8 @@ public class Estado_tareaService {
 
     @PutMapping("/estado_tareas/{id}")
     @ResponseBody
-    public Estado_tarea updateEstado_tarea(@RequestBody Estado_tarea ranking, @PathVariable long id){
-        Estado_tarea result = estado_tareaRepository.updateEstado_tarea(ranking, id);
+    public Estado_tarea updateEstado_tarea(@RequestBody Estado_tarea estado_tarea, @PathVariable long id){
+        Estado_tarea result = estado_tareaRepository.updateEstado_tarea(estado_tarea, id);
         return result;
     }
 
