@@ -56,7 +56,7 @@ public class Eme_habilidadRepositoryImp implements Eme_habilidadRepository {
             return null;
         }  
 
-        @Override
+    @Override
     public List<Eme_habilidad> deleteEme_habilidad(long id) {
         try(Connection conn = sql2o.open()){
             conn.createQuery("DELETE FROM eme_habilidad WHERE id = :deleteId")
@@ -68,11 +68,7 @@ public class Eme_habilidadRepositoryImp implements Eme_habilidadRepository {
             return null;
         }
     }
-            
-
-        }
-
-
+        
     
 
 

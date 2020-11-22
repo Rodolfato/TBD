@@ -45,7 +45,7 @@ public class Estado_tareaRepositoryImp implements Estado_tareaRepository {
         try(Connection conn = sql2o.open()){
             conn.createQuery("UPDATE estado_tarea SET descrip = :newDescrip WHERE id = :updateId")
                 .addParameter("updateId", id)
-                .addParameter("newDescrip", estado_tarea..getDescrip())
+                .addParameter("newDescrip", estado_tarea.getDescrip())
                 .executeUpdate();
             estado_tarea.setId(id);
             return estado_tarea;        
