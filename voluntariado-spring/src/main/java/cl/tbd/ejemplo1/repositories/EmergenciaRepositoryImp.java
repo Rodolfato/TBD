@@ -48,7 +48,7 @@ public class EmergenciaRepositoryImp implements EmergenciaRepository {
     @Override
     public Emergencia updateEmergencia(Emergencia emergencia, long id) {
         try(Connection conn = sql2o.open()){
-            conn.createQuery("UPDATE emergencia SET nombre = :newNombre, descrip = :newDescrip, finicio = :newFinicio, ffin - :newFfin, institucion = :newInstitucion WHERE id = :updateId")
+            conn.createQuery("UPDATE emergencia SET nombre = :newNombre, descrip = :newDescrip, finicio = :newFinicio, ffin = :newFfin, id_institucion = :newInstitucion WHERE id = :updateId")
                 .addParameter("updateId", id)
                 .addParameter("newNombre", emergencia.getNombre())
                 .addParameter("newDescrip", emergencia.getDescrip())

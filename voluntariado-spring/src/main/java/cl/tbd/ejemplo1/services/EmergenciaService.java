@@ -37,14 +37,14 @@ public class EmergenciaService {
         return result;
     }
 
-    @PutMapping("/eme_habilidades/{id}")
+    @PutMapping("/emergencias/{id}")
     @ResponseBody
     public Emergencia updateEmergencia(@RequestBody Emergencia emergencia, @PathVariable long id){
-        Emergencia result = emergenciaRepository.updatedEmergencia(emergencia, id);
+        Emergencia result = emergenciaRepository.updateEmergencia(emergencia, id);
         return result;
     }
 
-    @DeleteMapping("/eme_habilidades/{id}")
+    @DeleteMapping("/emergencias/{id}")
     public List<Emergencia> deleteEmergencia(@PathVariable long id){
         return emergenciaRepository.deleteEmergencia(id);
     }

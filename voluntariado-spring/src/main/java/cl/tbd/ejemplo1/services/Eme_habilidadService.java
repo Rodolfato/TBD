@@ -36,16 +36,12 @@ public class Eme_habilidadService {
     public Eme_habilidad createEme_habilidad(@RequestBody Eme_habilidad eme_habilidad){
         Eme_habilidad result = eme_habilidadRepository.createEme_habilidad(eme_habilidad);
         return result;
-    }
-    
-    
-
-    
+    }    
 
     @PutMapping("/eme_habilidades/{id}")
     @ResponseBody
     public Eme_habilidad updateEme_habilidad(@RequestBody Eme_habilidad eme_habilidad, @PathVariable long id){
-        Eme_habilidad result = eme_habilidadRepository.updateEme_Habilidad(eme_habilidad, id);
+        Eme_habilidad result = eme_habilidadRepository.updateEme_habilidad(eme_habilidad, id);
         return result;
     }
 
