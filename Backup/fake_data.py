@@ -4,6 +4,7 @@ import json
 import random
 import time 
 import datetime
+import csv
 
 current_milli_time = lambda: int(round(time.time() * 1000))
 
@@ -32,21 +33,19 @@ def get_data(table, dbName):
     
     return obj_ids
 
-def fill_voluntario(quantity, dbName):
-
-    names = ["Ana", "Enzo", "Hugo", "Juan", "Lara", "Leo", "Luz", "Sara", "Hector", "Helena", "Helena", "Lucia", "Manuel", "Mariana", "Martin", "Martin", "Isabel", "Lucia", "Marta", "Moises", "Raquel", "Samuel", "Alberto", "Felipe", "Beatriz", "Daniela", "Claudia", "Laura", "Daniel", "Pablo", "Alvaro", "Mateo", "Matias", "Diego", "David", "Sergio", "Marcos", "Carlos", "Miguel", "Lucas", "Mario", "Valentina"]
-
-    last_names = ["Gonzalez", "Rodriguez", "Gomez", "Lopez", "Fernandez", "Romero", "Sanchez", "Garcia", "Perez", "Martinez", "Diaz", "Sosa", "Torres", "Alvarez", "Ruiz", "Ramirez", "Acosta", "Suarez", "Gutierrez", "Aguire", "Montes", "Gimenez", "Rojas", "Pereyra", "Molina", "Castro", "Ortiz", "Silva", "Juarez", "Ojeda", "Ponce", "Arias", "Figueroa", "Ramos", "Correa", "Hernandez", "Escobar", "Mendoza", "Caroca", "Muena", "Campos", "Soto"]
-
+def fill_voluntario(dbName):
     try:	
         connection = get_connection_db(dbName)
         cursor = connection.cursor()
-
-        for i in range(0, quantity):
-            full_name = random.choice(names) + " " + random.choice(last_names)
-            birthday = rand_date("1970-01-01", "2002-01-01")
-            cursor.execute("INSERT INTO voluntario (nombre, fnacimiento) VALUES (%s, %s)",
-                            ( full_name, birthday ) )
+        
+        with open('TBD VOLUNTARIOS - Chile.csv', newline='') as File:
+            reader = csv.DictReader(File)
+            quantity = 0
+            for row in reader:
+                quantity += 1
+                full_name = row['nombre'] + ' ' + row['apellido']
+                cursor.execute("INSERT INTO voluntario (nombre, location, email, sexo) VALUES (%s, ST_GeomFromText('POINT(%s %s)', 4326), %s, %s)",
+                                ( full_name, float(row['longitude']), float(row['latitude']), row['email'], row['sexo']))
 
         connection.commit()
         print("Se agregaron " + str(quantity) + " registros en la tabla voluntario")     
@@ -100,6 +99,18 @@ def fill_institucion(dbName):
 def fill_habilidad(dbName):
     
     descriptions = ["Ser bueno con ninos", "Ser bueno con animales", "Tener fuerza", "Tiempo para largas jornadas", "Paciencia con tercera edad", "Buen estado fisico", "Capacidad para educar", "Capacidad para entretener"]
+    
+    with open('TBD VOLUNTARIOS - Chile.csv', newline='') as File:
+        reader = csv.DictReader(File)
+        for row in reader:
+            row['dimensions'] = json.loads(row['dimensions'])
+            row['requirements'] = json.loads(row['requirements'])
+            for hab in row['dimensions']:
+                if hab['name'] not in descriptions:
+                    descriptions.append(hab['name'])
+            for req in row['requirements']:
+                if req['name'] not in descriptions:
+                    descriptions.append(req['name'])
     
     try:	
         connection = get_connection_db(dbName)
@@ -392,7 +403,7 @@ def fill_ranking(quantity, dbName):
                       
 
 dbName_f = "postgres"
-fill_voluntario(1000, dbName_f)
+fill_voluntario(dbName_f)
 fill_institucion(dbName_f)
 fill_habilidad(dbName_f)
 fill_estado_tarea(dbName_f)
