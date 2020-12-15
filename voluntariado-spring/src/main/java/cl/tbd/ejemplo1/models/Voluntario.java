@@ -1,11 +1,13 @@
 package cl.tbd.ejemplo1.models;
 
-import java.sql.Date;
-
 public class Voluntario {
     private long id;
     private String nombre;
-    private Date fnacimiento;
+    private double longitud;
+    private double latitud;
+    private String email;
+    private String sexo;
+    
 
     public long getId() {
         return id;
@@ -23,11 +25,35 @@ public class Voluntario {
         this.nombre = nombre;
     }
 
-    public Date getFnacimiento(){
-        return fnacimiento;
+    public double getLongitud(){
+        return longitud;
     }
 
-    public void setFnacimiento(Date fnacimiento){
-        this.fnacimiento = fnacimiento;
+    public void setLongitud(double longitud){
+        this.longitud = longitud;
+    }
+
+    public double getLatitud(){
+        return latitud;
+    }
+
+    public void setLatitud(double latitud){
+        this.latitud = latitud;
+    }
+
+    public String getEmail(){
+        return email;
+    }
+
+    public void setEmail(String email){
+        this.email = email;
+    }
+
+    public String getSexo(){
+        return sexo;
+    }
+
+    public void setSexo(String sexo){
+        this.sexo = sexo;
     }
 }

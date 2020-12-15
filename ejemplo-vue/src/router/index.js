@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Emergencias from '../views/Emergencias.vue'
 import NewEmergencia from '../views/NewEmergencia.vue'
+import Map from '../components/Map.vue'
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,11 @@ Vue.use(VueRouter)
     path: '/new-emergencia',
     name: 'NewEmergencia',
     component: NewEmergencia
+  },
+  {
+    path: '/map-test',
+    name: 'Map',
+    component: Map
   },
   {
     path: '/about',

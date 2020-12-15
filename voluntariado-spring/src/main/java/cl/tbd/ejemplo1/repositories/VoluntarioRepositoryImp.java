@@ -26,7 +26,7 @@ public class VoluntarioRepositoryImp implements VoluntarioRepository {
     @Override
     public List<Voluntario> getAllVoluntarios() {
         try(Connection conn = sql2o.open()){
-            return conn.createQuery("select * from voluntario")
+            return conn.createQuery("SELECT id, nombre, st_x(st_astext(location)) AS longitud, st_y(st_astext(location)) AS latitud, email, sexo FROM voluntario")
                     .executeAndFetch(Voluntario.class);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -37,9 +37,13 @@ public class VoluntarioRepositoryImp implements VoluntarioRepository {
     @Override
     public Voluntario createVoluntario(Voluntario voluntario) {
         try(Connection conn = sql2o.open()){
-            long insertedId = (long) conn.createQuery("INSERT INTO voluntario (nombre, fnacimiento) values (:vNombre, :vNacimiento)", true)
+            String query = "INSERT INTO voluntario (nombre, location, email, sexo) values (:vNombre, ST_GeomFromText(:vPoint, 4326), :vEmail, :vSexo)";
+            String point = "POINT(" + voluntario.getLongitud() + " " + voluntario.getLatitud() + ")";
+            long insertedId = (long) conn.createQuery(query, true)
                     .addParameter("vNombre", voluntario.getNombre())
-                    .addParameter("vNacimiento", voluntario.getFnacimiento())
+                    .addParameter("vPoint", point)
+                    .addParameter("vEmail", voluntario.getEmail())
+                    .addParameter("vSexo", voluntario.getSexo())
                     .executeUpdate().getKey();
                     voluntario.setId(insertedId);
             return voluntario;        
@@ -53,10 +57,14 @@ public class VoluntarioRepositoryImp implements VoluntarioRepository {
     @Override
     public Voluntario updateVoluntario(Voluntario voluntario, long id) {
         try(Connection conn = sql2o.open()){
-            conn.createQuery("UPDATE voluntario SET nombre = :vNombre, fnacimiento = :vNacimiento WHERE id = :updateId")
+            String query = "UPDATE voluntario SET nombre = :vNombre, location = ST_GeomFromText(:vPoint, 4326), email = :vEmail, sexo = :vSexo WHERE id = :updateId";
+            String point = "POINT(" + voluntario.getLongitud() + " " + voluntario.getLatitud() + ")";
+            conn.createQuery(query, true)
                 .addParameter("updateId", id)
                 .addParameter("vNombre", voluntario.getNombre())
-                .addParameter("vNacimiento", voluntario.getFnacimiento())
+                .addParameter("vPoint", point)
+                .addParameter("vEmail", voluntario.getEmail())
+                .addParameter("vSexo", voluntario.getSexo())
                 .executeUpdate();
             voluntario.setId(id);
             return voluntario;        

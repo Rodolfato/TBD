@@ -4,7 +4,8 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/emergencias">Listado de Emergencias</router-link> |
-      <router-link to="/new-emergencia">Ingresar nueva Emergencia</router-link> 
+      <router-link to="/new-emergencia">Ingresar nueva Emergencia</router-link> |
+      <router-link to="/map-test">Testeo de mapa</router-link>
     </div>
     <router-view/>
   </div>
