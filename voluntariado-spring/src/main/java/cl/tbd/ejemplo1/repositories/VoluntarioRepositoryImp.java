@@ -40,12 +40,12 @@ public class VoluntarioRepositoryImp implements VoluntarioRepository {
             String query = "INSERT INTO voluntario (nombre, location, email, sexo) values (:vNombre, ST_GeomFromText(:vPoint, 4326), :vEmail, :vSexo)";
             String point = "POINT(" + voluntario.getLongitud() + " " + voluntario.getLatitud() + ")";
             long insertedId = (long) conn.createQuery(query, true)
-                    .addParameter("vNombre", voluntario.getNombre())
-                    .addParameter("vPoint", point)
-                    .addParameter("vEmail", voluntario.getEmail())
-                    .addParameter("vSexo", voluntario.getSexo())
-                    .executeUpdate().getKey();
-                    voluntario.setId(insertedId);
+                .addParameter("vNombre", voluntario.getNombre())
+                .addParameter("vPoint", point)
+                .addParameter("vEmail", voluntario.getEmail())
+                .addParameter("vSexo", voluntario.getSexo())
+                .executeUpdate().getKey();
+            voluntario.setId(insertedId);
             return voluntario;        
         }catch(Exception e){
             System.out.println(e.getMessage());

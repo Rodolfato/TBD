@@ -4,7 +4,7 @@
     <ul class="item-list">
       <li v-for="(item, index) in items" :key="index">
        <!-- <img :src="'https://loremflickr.com/160/120/dog?lock='+i"/>-->
-        {{item.id}} - {{item.nombre}} - {{item.descrip}} - {{item.finicio}} - {{item.ffin}} - {{item.id_inst}} 
+        {{item.id}} - {{item.nombre}} - {{item.descrip}} - {{item.finicio}} - {{item.ffin}} - {{item.id_inst}} - {{item.longitud}} - {{item.latitud}} 
       </li>
     </ul>
     <div v-if="items.length==0" class="empty-list">
