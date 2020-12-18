@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Emergencias from '../views/Emergencias.vue'
 import NewEmergencia from '../views/NewEmergencia.vue'
 import Map from '../components/Map.vue'
+import HomePage from '../components/HomePage.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ Vue.use(VueRouter)
     path: '/map-test',
     name: 'Map',
     component: Map
+  },
+  {
+    path: '/homepage',
+    name: 'HomePage',
+    component: HomePage
   },
   {
     path: '/about',
