@@ -1,12 +1,15 @@
 package cl.tbd.ejemplo1.repositories;
 
+import cl.tbd.ejemplo1.models.Tarea;
 import cl.tbd.ejemplo1.models.Voluntario;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class VoluntarioRepositoryImp implements VoluntarioRepository {
@@ -82,6 +85,25 @@ public class VoluntarioRepositoryImp implements VoluntarioRepository {
                 .addParameter("deleteId", id)
                 .executeUpdate();
             return getAllVoluntarios();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public List<Map<String,Object>> getWithinRadius(long id, double radius) {
+        try(Connection conn = sql2o.open()){
+            List<Tarea> tarea = conn.createQuery("SELECT st_x(st_astext(location)) AS longitud, st_y(st_astext(location)) AS latitud FROM tarea WHERE id = :tId")
+                .addParameter("tId", id)
+                .executeAndFetch(Tarea.class);
+            String point = "POINT(" + tarea.get(0).getLongitud() + " " + tarea.get(0).getLatitud() + ")";
+            //Distancia de ST_Distance es en metros, se divide por 1000 en la query para obtener la distancia en kilometros
+            return conn.createQuery("SELECT id, nombre, st_x(st_astext(location)) AS longitud, st_y(st_astext(location)) AS latitud, email, sexo, distancia_kms FROM (SELECT *, (ST_Distance(ST_GeomFromText(:vPoint, 4326), location::geography) / 1000) AS distancia_kms FROM voluntario ORDER BY distancia_kms ASC) AS tabla_distancias WHERE distancia_kms <= :radius")
+                .addParameter("vPoint", point)
+                .addParameter("radius", radius)
+                .executeAndFetchTable()
+                .asList();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;

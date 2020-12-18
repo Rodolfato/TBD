@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -53,5 +54,10 @@ public class VoluntarioService {
     @DeleteMapping("/voluntarios/{id}")
     public List<Voluntario> deleteVoluntario(@PathVariable long id){
         return voluntarioRepository.deleteVoluntario(id);
+    }
+
+    @GetMapping("/voluntarios/d")
+    public List<Map<String,Object>> getWithinRadius(long id, double radius){
+        return voluntarioRepository.getWithinRadius(id, radius);
     }
 }
