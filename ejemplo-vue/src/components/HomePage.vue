@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid m-0 p-0">
+    <div id="homepage" class="container-fluid m-0 p-0">
 
         <div id="first" class="full-height p-4">
         <div class="container pt-5">
@@ -72,10 +72,10 @@
                     <div class="form-group text-left">
 
                         <input type="email" class="form-control" placeholder="Ingresa tu email">
-                        <textarea class="form-control mt-3" placeholder="Cuentános por qué quieres unirte" rows="5"></textarea>
+                        <textarea class="form-control mt-3" placeholder="Cuentanos por qué quieres unirte" rows="5"></textarea>
 
                     </div>
-                    <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+                    <button id type="submit" class="btn btn-primary">Enviar mensaje</button>
 
                 </form>
             </div>
@@ -125,5 +125,9 @@ export default {
         height: 35vh;
         width: 35vh;
         padding: 10px;
+    }
+
+    #homepage{
+        text-align: center;
     }
 </style>

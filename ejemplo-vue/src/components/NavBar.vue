@@ -34,8 +34,8 @@ export default {
         },
         {
           id: 3,
-          text: 'Map',
-          page:'/map-test'
+          text: 'NewTarea',
+          page: '/new-tarea'
         },
       ]
     }
