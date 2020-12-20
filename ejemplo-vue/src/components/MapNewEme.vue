@@ -60,6 +60,10 @@
 
         <!-- componente Map.vue -->
         <div id="map-eme" class="col-lg map container-fluid">
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="mostrarVols" value="checked" v-model="showVols">
+                <label class="form-check-label" for="mostrarVols">Mostrar voluntarios</label>
+            </div>
             <l-map :zoom="zoom" :center="center" @click="onClick">
                 <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
 
@@ -73,7 +77,6 @@
                     >
                     </l-icon>
                 </l-marker> 
-
                 <l-marker
                     :key="index"
                     v-for="(eme, index) in emes"
@@ -85,20 +88,21 @@
                         :icon-url="emeIcon"
                     >
                     </l-icon>
-                </l-marker>  
-                <l-marker
-                    :key="index"
-                    v-for="(vol, index) in vols"
-                    :lat-lng="latLng(vol.latitud, vol.longitud)"
-                >
-                    <l-popup :content="'Voluntario: '+ vol.nombre + '</br>' + 'E-mail: ' + vol.email + '</br>' + 'Género: ' + vol.sexo"></l-popup>
-                    <l-icon
-                        :icon-size="volSize"
-                        :icon-url="volIcon" 
-                    >
-                    </l-icon>
                 </l-marker>
-                        
+                <class v-if="showVols">
+                    <l-marker
+                        :key="index"
+                        v-for="(vol, index) in vols"
+                        :lat-lng="latLng(vol.latitud, vol.longitud)"
+                    >
+                        <l-popup :content="'Voluntario: '+ vol.nombre + '</br>' + 'E-mail: ' + vol.email + '</br>' + 'Género: ' + vol.sexo"></l-popup>
+                        <l-icon
+                            :icon-size="volSize"
+                            :icon-url="volIcon" 
+                        >
+                        </l-icon>
+                    </l-marker>
+                </class>        
             </l-map>
             <MapLegend></MapLegend>
 
@@ -125,6 +129,7 @@ export default {
   name: 'Mapa',
   data() {
     return {
+      showVols: false,
       message:'',
       newEmergencia:{},
       insts:[],

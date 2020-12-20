@@ -39,7 +39,7 @@
 
                 <div>
                     <label for="cant_vol_requeridos">Cantidad de voluntarios requeridos</label>
-                    <input class="form-control" type="number" id="cant_vol_requeridos" v-model="newTarea.cant_vol_requeridos">
+                    <input class="form-control" type="number" min=1 id="cant_vol_requeridos" v-model="newTarea.cant_vol_requeridos">
                 </div>
 
                 <div class="form-group">
@@ -65,6 +65,10 @@
 
         <!-- componente Map.vue -->
         <div id="map-eme" class="col-lg map container-fluid">
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="mostrarVols" value="checked" v-model="showVols">
+                <label class="form-check-label" for="mostrarVols">Mostrar voluntarios</label>
+            </div>
             <l-map :zoom="zoom" :center="center" @click="onClick">
                 <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
 
@@ -91,20 +95,21 @@
                         :icon-url="emeIcon"
                     >
                     </l-icon>
-                </l-marker>  
-                <l-marker
-                    :key="index"
-                    v-for="(vol, index) in vols"
-                    :lat-lng="latLng(vol.latitud, vol.longitud)"
-                >
-                    <l-popup :content="'Voluntario: '+ vol.nombre + '</br>' + 'E-mail: ' + vol.email + '</br>' + 'Género: ' + vol.sexo"></l-popup>
-                    <l-icon
-                        :icon-size="volSize"
-                        :icon-url="volIcon" 
-                    >
-                    </l-icon>
                 </l-marker>
-                        
+                <class v-if="showVols">
+                    <l-marker
+                        :key="index"
+                        v-for="(vol, index) in vols"
+                        :lat-lng="latLng(vol.latitud, vol.longitud)"
+                    >
+                        <l-popup :content="'Voluntario: '+ vol.nombre + '</br>' + 'E-mail: ' + vol.email + '</br>' + 'Género: ' + vol.sexo"></l-popup>
+                        <l-icon
+                            :icon-size="volSize"
+                            :icon-url="volIcon" 
+                        >
+                        </l-icon>
+                    </l-marker>
+                </class>        
             </l-map>
             <MapLegend></MapLegend>
         </div>
@@ -130,6 +135,7 @@ export default {
   name: 'MapaNewTarea',
   data() {
     return {
+      showVols: false,
       message:'',
       newTarea:{},
       insts:[],
