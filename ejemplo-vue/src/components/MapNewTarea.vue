@@ -33,7 +33,7 @@
                 <div class="form-group">
                     <label for="id_institucion">Elegir la emergencia</label>
                     <select class="form-control" id="id_emergencia" v-model="newTarea.id_emergencia">                        
-                        <option v-bind:value="emergencia.id" v-for="(emergencia, index) in emes" :key="index">{{emergencia.nombre}}</option>                        
+                        <option v-bind:value="emergencia.id" v-for="(emergencia, index) in emes" :key="'emeF' + index">{{emergencia.nombre}}</option>                        
                     </select>
                 </div>
 
@@ -85,7 +85,7 @@
 
 
                 <l-marker
-                    :key="index"
+                    :key="'emeM' + index"
                     v-for="(eme, index) in emes"
                     :lat-lng="latLng(eme.latitud, eme.longitud)"                
                 >
@@ -95,7 +95,24 @@
                         :icon-url="emeIcon"
                     >
                     </l-icon>
-                </l-marker>
+                </l-marker>       
+
+                <l-marker
+                    :key="index"
+                    v-for="(tarea, index) in tareas"
+                    :lat-lng="latLng(tarea.latitud, tarea.longitud)"                
+                >
+                    <l-popup :content="'Tarea: '+ tarea.nombre + '</br>' + 'Descripción: ' + tarea.descrip + '</br>' + 'Vols. requeridos: ' + tarea.cant_vol_requeridos" ></l-popup>
+                    <l-icon
+                        :icon-size="tareaSize"
+                        :icon-url="tareaIcon"
+                    >
+                    </l-icon>
+                </l-marker>         
+
+
+
+
                 <class v-if="showVols">
                     <l-marker
                         :key="index"
@@ -141,6 +158,7 @@ export default {
       insts:[],
       vols: [],
       emes: [],
+      tareas: [],
       zoom: 9,
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution:
@@ -231,7 +249,7 @@ export default {
                 //this.message = `Se creó una nueva emergencia con id: ${emergencia.id}`;
                 this.message = `Tarea "${tarea.nombre}" creada correctamente.`;
                 this.newTarea = {};
-                this.getEmes();
+                this.getTareas();
             } catch (error) {
                 console.log('error', error)
                 this.message = 'Ocurrió un error'
@@ -246,6 +264,15 @@ export default {
             } catch (error) {
                 console.log('error', error);
             }
+        },
+        getTareas:async function(){
+            try{
+                let response = await this.$http.get('/tareas');
+                this.tareas = response.data;
+                console.log(response);
+            }catch(error){
+                console.log('error', error);
+            }
         }
   },
 
@@ -253,6 +280,7 @@ export default {
           this.getVols();
           this.getEmes();
           this.getInsts();
+          this.getTareas();
       }
 };
 

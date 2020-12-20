@@ -77,8 +77,23 @@
                     >
                     </l-icon>
                 </l-marker> 
+
                 <l-marker
                     :key="index"
+                    v-for="(tarea, index) in tareas"
+                    :lat-lng="latLng(tarea.latitud, tarea.longitud)"                
+                >
+                    <l-popup :content="'Tarea: '+ tarea.nombre + '</br>' + 'Descripción: ' + tarea.descrip + '</br>' + 'Vols. requeridos: ' + tarea.cant_vol_requeridos" ></l-popup>
+                    <l-icon
+                        :icon-size="tareaSize"
+                        :icon-url="tareaIcon"
+                    >
+                    </l-icon>
+                </l-marker>
+
+
+                <l-marker
+                    :key="'emeNME' + index"
                     v-for="(eme, index) in emes"
                     :lat-lng="latLng(eme.latitud, eme.longitud)"                
                 >
@@ -135,6 +150,7 @@ export default {
       insts:[],
       vols: [],
       emes: [],
+      tareas: [],
       zoom: 9,
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution:
@@ -233,6 +249,15 @@ export default {
             } catch (error) {
                 console.log('error', error);
             }
+        },
+        getTareas:async function(){
+            try{
+                let response = await this.$http.get('/tareas');
+                this.tareas = response.data;
+                console.log(response);
+            }catch(error){
+                console.log('error', error);
+            }
         }
   },
 
@@ -240,6 +265,7 @@ export default {
           this.getVols();
           this.getEmes();
           this.getInsts();
+          this.getTareas();
       }
 };
 
