@@ -19,24 +19,29 @@ export default {
       routes: [
         {
           id: 0,
-          text: 'Home',
+          text: 'Inicio',
           page:'/'
         },
         {
           id: 1,
-          text: 'Emergencias',
+          text: 'Ver emergencias actuales',
           page:'/Emergencias'
         },
         {
           id: 2,
-          text: 'Nueva Emergencia',
+          text: 'Notificar una emergencia',
           page:'/new-emergencia'
         },
         {
           id: 3,
-          text: 'NewTarea',
+          text: 'Agregar una tarea',
           page: '/new-tarea'
         },
+        {
+          id: 4,
+          text: 'Obtener voluntarios por radio',
+          page: '/vol-radius'
+        }
       ]
     }
   }

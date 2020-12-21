@@ -9,7 +9,7 @@
         <!-- componente NewEmergencia.vue -->
         <div class="col-lg container-fluid">
             
-            <form class=" pt-4">
+            <form class="pt-4">
                 <div class="form-group">
                     <label for="name">Nombre</label>
                     <input placeholder="Eliga un nombre para la tarea" class="form-control" type="text" id="nombre" v-model="newTarea.nombre">

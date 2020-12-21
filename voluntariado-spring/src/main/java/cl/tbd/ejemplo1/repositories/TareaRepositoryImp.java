@@ -87,5 +87,33 @@ public class TareaRepositoryImp implements TareaRepository {
             return null;
         }
     }
+
+    @Override
+    public List<Tarea> getTareasByEmergencia(long id_emergencia){
+        try(Connection conn = sql2o.open()){
+            return conn.createQuery("SELECT id, nombre, descrip, cant_vol_requeridos, cant_vol_inscritos, id_emergencia, finicio, ffin, id_estado, st_x(st_astext(location)) AS longitud, st_y(st_astext(location)) AS latitud FROM tarea WHERE id_emergencia = :id_eme")
+                    .addParameter("id_eme", id_emergencia)
+                    .executeAndFetch(Tarea.class);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+
+    }
+
+    @Override
+    public Tarea getTarea(long id){
+
+        try(Connection conn = sql2o.open()){
+            return conn.createQuery(
+                    "SELECT id, nombre, descrip, cant_vol_requeridos, cant_vol_inscritos, id_emergencia, finicio, ffin, id_estado, st_x(st_astext(location)) AS longitud, st_y(st_astext(location)) AS latitud FROM tarea WHERE id = :id_tarea")
+                    .addParameter("id_tarea", id)
+                    .executeAndFetchFirst(Tarea.class);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+
+    }
     
 }

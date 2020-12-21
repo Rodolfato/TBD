@@ -6,6 +6,7 @@ import NewEmergencia from '../views/NewEmergencia.vue'
 import HomePage from '../components/HomePage.vue'
 import About from '../views/About.vue'
 import NewTarea from '../views/NewTarea.vue'
+import VolsByRadius from '../views/GetVolsByRadius.vue'
 
 Vue.use(VueRouter)
 
@@ -34,6 +35,11 @@ Vue.use(VueRouter)
     path: '/new-tarea',
     name: 'NewTarea',
     component: NewTarea
+  },
+  {
+    path: '/vol-radius',
+    name: 'GetVolsByRadius',
+    component: VolsByRadius
   },
   {
     path: '/about',

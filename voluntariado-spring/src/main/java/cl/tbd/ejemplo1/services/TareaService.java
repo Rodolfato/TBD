@@ -48,5 +48,17 @@ public class TareaService {
     public List<Tarea> deleteTareas(@PathVariable long id){
         return tareaRepository.deleteTarea(id);
     }
+
+    @GetMapping("/tareas/emergencia/{id_eme}")
+    public List<Tarea> getTareasByEmergencia(@PathVariable long id_eme) {
+        return tareaRepository.getTareasByEmergencia(id_eme);
+    }
+
+    @GetMapping("/tareas/{id}")
+    public Tarea getTarea(@PathVariable long id){
+        return tareaRepository.getTarea(id);
+    }
+
+
     
 }

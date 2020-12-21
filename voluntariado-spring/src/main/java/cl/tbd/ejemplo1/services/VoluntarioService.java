@@ -56,8 +56,8 @@ public class VoluntarioService {
         return voluntarioRepository.deleteVoluntario(id);
     }
 
-    @GetMapping("/voluntarios/d")
-    public List<Map<String,Object>> getWithinRadius(long id, double radius){
+    @GetMapping("/voluntarios/{id}/{radius}")
+    public List<Map<String,Object>> getWithinRadius(@PathVariable long id, @PathVariable double radius){
         return voluntarioRepository.getWithinRadius(id, radius);
     }
 }
