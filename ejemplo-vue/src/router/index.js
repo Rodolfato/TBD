@@ -7,6 +7,10 @@ import HomePage from '../components/HomePage.vue'
 import About from '../views/About.vue'
 import NewTarea from '../views/NewTarea.vue'
 import VolsByRadius from '../views/GetVolsByRadius.vue'
+import InscEme from '../components/JoinEme.vue'
+import SitActual from '../components/OngoingEmes.vue'
+import Historial from '../components/EmeRecord.vue'
+
 
 Vue.use(VueRouter)
 
@@ -15,6 +19,21 @@ Vue.use(VueRouter)
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/insc-eme',
+    name: 'InscEme',
+    component: InscEme
+  },
+  {
+    path: '/historial',
+    name: 'Historial',
+    component: Historial
+  },
+  {
+    path: '/sit-actual',
+    name: 'SitActual',
+    component: SitActual
   },
   {
     path: '/emergencias',

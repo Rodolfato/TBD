@@ -15,9 +15,17 @@
                     <div class="text-center mb-3 pt-4 my-auto bg-transparent">
                         <h1 id="title" class="display-5">Voluntariado Comparte</h1>
                         <h3>Compartiendo nuevas oportunidades</h3>
-                    </div>                    
-                </div>
-
+                        <h3 id="selection">Ingresar como:</h3> 
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <button id="button" type="button" class="btn btn-primary btn-sm" @click="setPermission('admin')">Administrador</button>
+                        </div>
+                        <div class="col-lg-6">
+                            <button id="button" type="button" class="btn btn-primary btn-sm" @click="setPermission('vol')">Voluntario</button>
+                        </div>
+                    </div>
+                </div>                    
             </div>
         </div>       
     </div>
@@ -59,7 +67,7 @@
                 <img id="sabout" src="../assets/unete.jpg" class="rounded-circle img-fluid center" >
                 <h4 class="font-weight-bold">¡ÚNETE!</h4>
                 <h5 class="ml-md-4 mr-md-4">
-                Siempre estamos en la búsqueda de nuevos integrantes para apoyar nuestra misión.
+                    Siempre estamos en la búsqueda de nuevos integrantes para apoyar nuestra misión.
                 </h5>
             </div>
 
@@ -91,8 +99,17 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 export default {
-    
+    props: {
+    ...mapState(['permission'])
+    },
+    methods: {
+        setPermission: function(value){
+            this.$store.state.permission = value;
+        }
+    }
 }
 </script>
 
@@ -121,6 +138,19 @@ export default {
         color:rgb(15, 99, 99);
         
     }
+
+    #button{
+        color: white;
+        background-color: rgb(15, 99, 99);
+        border-color: #2c3e50;
+        
+    }
+
+    #selection{
+        color: white;
+        -webkit-text-stroke: 1.5px #2c3e50;
+    }
+
     #sabout{
         height: 35vh;
         width: 35vh;
