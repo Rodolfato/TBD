@@ -32,7 +32,7 @@
                         </div>
                         <li class="list-group-item" v-for="(tarea, index) in tareas" :key="'tareaFV' + index">                        
                             <h5>{{ tarea.nombre }}</h5>
-                            <p>Descripción: {{tarea.descrip}}<br>Estado: {{tarea.id_estado}}</p>                        
+                            <p>Descripción: {{tarea.descrip}}<br>Estado: {{taskStates[tarea.id_estado]}}</p>                        
                         </li>
                    
                 </ul>
@@ -57,7 +57,7 @@ export default {
             volEmes: [],
             selectedEmeId: null,
             tareas: [],
-
+            taskStates: ['Finalizada', 'Pendiente', 'En Proceso', 'Cancelada']
         };
 
 
