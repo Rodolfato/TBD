@@ -109,4 +109,19 @@ public class VoluntarioRepositoryImp implements VoluntarioRepository {
             return null;
         }
     }
+
+    @Override
+    public List<Voluntario> getOnlyVoluntariosWithTasks(){
+        try(Connection conn = sql2o.open()){
+            return conn.createQuery("SELECT vol.id, vol.nombre, st_x(st_astext(vol.location)) AS longitud, st_y(st_astext(vol.location)) AS latitud, vol.email, vol.sexo FROM voluntario vol JOIN ranking ran ON vol.id = ran.id_voluntario WHERE flg_participa = 1 AND flg_invitado = 1")
+                    .executeAndFetch(Voluntario.class);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+
+
+    }
 }
+
+

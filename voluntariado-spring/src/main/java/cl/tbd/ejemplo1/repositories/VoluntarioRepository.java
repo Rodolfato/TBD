@@ -12,4 +12,5 @@ public interface VoluntarioRepository {
     public Voluntario updateVoluntario(Voluntario voluntario, long id);
     public List<Voluntario> deleteVoluntario(long id);
     public List<Map<String,Object>> getWithinRadius(long id, double radius);
+    public List<Voluntario> getOnlyVoluntariosWithTasks();
 }

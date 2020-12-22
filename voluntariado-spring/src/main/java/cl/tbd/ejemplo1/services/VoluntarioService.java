@@ -60,4 +60,9 @@ public class VoluntarioService {
     public List<Map<String,Object>> getWithinRadius(@PathVariable long id, @PathVariable double radius){
         return voluntarioRepository.getWithinRadius(id, radius);
     }
+
+    @GetMapping("/voluntarios/onlytareas")
+    public List<Voluntario> getOnlyVoluntariosWithTasks(){
+        return voluntarioRepository.getOnlyVoluntariosWithTasks();
+    }
 }

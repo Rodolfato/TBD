@@ -11,5 +11,6 @@ public interface TareaRepository {
     public Tarea updateTarea(Tarea tarea, long id);
     public List<Tarea> deleteTarea(long id);
     public List<Tarea> getTareasByEmergencia(long id_emergencia);
+    public List<Tarea> getTareasByEmergenciaAndEstado(long id_emergencia, int id_estado);
     
 }

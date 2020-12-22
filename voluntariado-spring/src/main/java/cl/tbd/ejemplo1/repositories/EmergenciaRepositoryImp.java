@@ -84,6 +84,23 @@ public class EmergenciaRepositoryImp implements EmergenciaRepository {
         }
     }
 
+    @Override
+    public List<Emergencia> getAllEmergenciasByVoluntario(long id_voluntario){
+        
+        try(Connection conn = sql2o.open()){
+            return conn.createQuery("SELECT DISTINCT ON (eme.id) eme.id, eme.nombre, eme.descrip, eme.finicio, eme.ffin, eme.id_institucion, st_x(st_astext(eme.location)) AS longitud, st_y(st_astext(eme.location)) AS latitud FROM emergencia eme JOIN tarea tr ON eme.id = tr.id_emergencia JOIN ranking ran ON tr.id = ran.id_tarea WHERE ran.id_voluntario = :id_vol AND ran.flg_invitado = 1 AND ran.flg_participa = 1")
+                    .addParameter("id_vol", id_voluntario)
+                    .executeAndFetch(Emergencia.class);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+
+        
+
+    }
+
+    
 
 
 

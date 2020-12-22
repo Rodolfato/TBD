@@ -59,6 +59,12 @@ public class TareaService {
         return tareaRepository.getTarea(id);
     }
 
+    @GetMapping("/tareas/emergencia/{id_emergencia}/{id_estado}")
+    public List<Tarea> getTareasByEmergenciaAndEstado(@PathVariable long id_emergencia, @PathVariable int id_estado){
+        return tareaRepository.getTareasByEmergenciaAndEstado(id_emergencia, id_estado);
+    }
+    
+
 
     
 }
