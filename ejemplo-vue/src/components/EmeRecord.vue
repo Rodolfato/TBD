@@ -27,12 +27,22 @@
             <div v-if="selectedVolId != null" class="container-fluid col">
 
                 <ul class="list-group" id="tareas">
-                        <div v-if="tareas.length == 0 && selectedVolId != null">
-                            <h5 class="text-center">No tiene tareas finalizadas en esta emergencia.</h5>
-                        </div>
+                        
+                    <h5 v-if ="tareas.length != 0 && selectedVolId != null" class="text-center">Tareas finalizadas:</h5>
+                    <h5 v-if ="tareas.length == 0 && selectedVolId != null" class="text-center">No tiene tareas finalizadas en esta emergencia.</h5>
+
+
                         <li class="list-group-item" v-for="(tarea, index) in tareas" :key="'tareaFV' + index">                        
                             <h5>{{ tarea.nombre }}</h5>
                             <p>Descripción: {{tarea.descrip}}<br>Estado: {{taskStates[tarea.id_estado]}}</p>                        
+                        </li>
+
+                    <h5 v-if ="tareas3.length != 0 && selectedVolId != null" class="text-center">Tareas canceladas:</h5>
+                    <h5 v-if ="tareas3.length == 0 && selectedVolId != null" class="text-center">No tiene tareas canceladas en esta emergencia.</h5>
+
+                        <li class="list-group-item" v-for="(tarea3, index) in tareas3" :key="'tareaFV' + index">                        
+                            <h5>{{ tarea3.nombre }}</h5>
+                            <p>Descripción: {{tarea3.descrip}}<br>Estado: {{taskStates[tarea3.id_estado]}}</p>                        
                         </li>
                    
                 </ul>
@@ -57,6 +67,7 @@ export default {
             volEmes: [],
             selectedEmeId: null,
             tareas: [],
+            tareas3: [],
             taskStates: ['Finalizada', 'Pendiente', 'En Proceso', 'Cancelada']
         };
 
@@ -76,6 +87,10 @@ export default {
             try {
                 let response = await this.$http.get(`/tareas/emergencia/${id_eme}/0`);
                 this.tareas  = response.data;
+
+                let response3 = await this.$http.get(`/tareas/emergencia/${id_eme}/3`);  
+                this.tareas3  = response3.data;
+
                 console.log(response)
             } catch (error) {
                 console.log('error', error);

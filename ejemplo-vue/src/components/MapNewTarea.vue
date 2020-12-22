@@ -37,6 +37,13 @@
                     </select>
                 </div>
 
+                <div class="form-group">
+                    <label for="id_estado">Elegir el estado de la tarea</label>
+                    <select class="form-control" id="id_estado" v-model="newTarea.id_estado">                        
+                        <option v-bind:value="estado.id" v-for="(estado, index) in estados" :key="'estado' + index">{{estado.descrip}}</option>                        
+                    </select>
+                </div>
+
                 <div>
                     <label for="cant_vol_requeridos">Cantidad de voluntarios requeridos</label>
                     <input class="form-control" type="number" min=1 id="cant_vol_requeridos" v-model="newTarea.cant_vol_requeridos">
@@ -159,6 +166,7 @@ export default {
       vols: [],
       emes: [],
       tareas: [],
+      estados: [],
       zoom: 9,
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution:
@@ -273,6 +281,16 @@ export default {
             }catch(error){
                 console.log('error', error);
             }
+        
+        },
+        getEstados:async function(){
+            try{
+                let response = await this.$http.get('/estado_tareas');
+                this.estados = response.data;
+                console.log(response);
+            }catch(error){
+                console.log('error', error);
+            }
         }
   },
 
@@ -281,6 +299,7 @@ export default {
           this.getEmes();
           this.getInsts();
           this.getTareas();
+          this.getEstados();
       }
 };
 
