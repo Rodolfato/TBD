@@ -55,4 +55,9 @@ public class RankingService {
     public List<Ranking> deleteRanking(@PathVariable long id){
         return rankingRepository.deleteRanking(id);
     }
+
+    @GetMapping("/rankings/getRanking")
+    public int calculateRanking(long id_tarea, long id_vol){
+        return rankingRepository.calculateRanking(id_tarea, id_vol);
+    }
 }

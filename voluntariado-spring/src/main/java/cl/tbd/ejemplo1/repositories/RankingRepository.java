@@ -12,4 +12,5 @@ public interface RankingRepository {
     public JSONArray getRankByTask(long id_tarea, int quantity);
     public Ranking updateRanking(Ranking ranking, long id);
     public List<Ranking> deleteRanking(long id);
+    public int calculateRanking(long id_tarea, long id_vol);
 }

@@ -10,7 +10,9 @@ import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.data.Table;
 
+import cl.tbd.ejemplo1.models.Eme_habilidad;
 import cl.tbd.ejemplo1.models.Ranking;
+import cl.tbd.ejemplo1.models.Vol_habilidad;
 
 @Repository
 public class RankingRepositoryImp implements RankingRepository {
@@ -118,4 +120,30 @@ public class RankingRepositoryImp implements RankingRepository {
             return null;
         }
     }
+
+    @Override
+    public int calculateRanking(long id_tarea, long id_vol){
+        try(Connection conn = sql2o.open()){
+            int ranking = 0;
+            List<Eme_habilidad> emeHabs = conn.createQuery("SELECT id_habilidad FROM eme_habilidad WHERE id IN (SELECT id_emehab FROM tarea_habilidad WHERE id_tarea = :tarId)")
+                .addParameter("tarId", id_tarea)
+                .executeAndFetch(Eme_habilidad.class);
+            List<Vol_habilidad> volHabs = conn.createQuery("SELECT id_habilidad FROM vol_habilidad WHERE id_voluntario = :volId")
+                .addParameter("volId", id_vol)
+                .executeAndFetch(Vol_habilidad.class);
+            for(Eme_habilidad e: emeHabs){
+                for(Vol_habilidad v: volHabs){
+                    if(e.id_habilidad == v.id_habilidad){
+                        ranking += 100;
+                    }
+                }   
+            }
+                   
+            return ranking;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return -1;
+        } 
+    }
+
 }
