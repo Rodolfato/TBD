@@ -39,16 +39,16 @@ Reemplazando *user*, *password*, *port* y *dbName_f* según corresponda.
 
 Una vez realizado esto es necesario cargar el backup de la base de datos utilizando PgAdmin4:
 
-![alt text](https://imgur.com/FU9zbCz.png)
+![alt text](https://i.imgur.com/NQxSurt.png)
 
-Y cargar el archivo llamado: *voluntariado_backup_fk_actions*
+Y cargar el archivo llamado: *geo_backup_v4*
 
-![alt text](https://imgur.com/MMZXHpz.png)
+![alt text](https://i.imgur.com/kSmqo5V.png)
 
 Una vez cargado el backup a la base de datos, es necesario rellenarla de datos de prueba utilizando el programa llamado *fake_data.py*, ejecutando el siguiente comando dentro de la carpeta *Backup*:
 
 ```sh
-$ python fake_data.py
+$ python3 fake_data.py
 ```
 
 Si se desea borrar datos guardados con anterioridad, se debe ejecutar el programa *load_data.py*, de la misma forma:
