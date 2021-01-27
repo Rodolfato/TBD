@@ -53,7 +53,7 @@ def create_tabla(amount,data_template,action, url):
 
 ###############################################################################
 def create_tablas(tables):
-    create_tabla(tables["persona"],
+    create_tabla(tables["voluntario"],
                  {"rut":{"type":"num","value":0},
                   "nombre": {"type":"name"},
                   "email": {"type":"email","value":"X@tbd.cl"},
@@ -63,7 +63,7 @@ def create_tablas(tables):
 
 def main():
     delete_tablas()
-    create_tablas({"persona":200})
+    create_tablas({"voluntario":200})
 
 
 main()
